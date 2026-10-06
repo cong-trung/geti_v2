@@ -1,0 +1,22 @@
+15:40:50,612 commands.uninstall INFO Running platform uninstaller...
+15:40:50,613 cli_utils.checks INFO Running check: check_user_id
+15:40:50,613 cli_utils.checks INFO Running check: check_internet_connection
+15:40:50,613 checks.internet INFO Checking Internet access.
+15:40:50,613 checks.internet DEBUG Sending request to http://ghcr.io...
+15:40:50,614 urllib3.connectionpool DEBUG Starting new HTTP connection (1): proxy-dmz.intel.com:911
+15:40:50,781 urllib3.connectionpool DEBUG http://proxy-dmz.intel.com:911 "HEAD http://ghcr.io/ HTTP/1.1" 301 0
+15:40:50,782 checks.internet DEBUG Internet is accessible.
+15:40:50,782 cli_utils.checks INFO Running check: check_if_k3s_installed_by_platform_installer
+15:40:50,782 checks.k3s INFO Checking if k3s was installed by platform installer.
+15:40:50,782 checks.k3s DEBUG Checking whether impt_k3s stub file exists in /etc/rancher/k3s directory...
+15:40:50,782 checks.k3s DEBUG impt_k3s stub file exists.
+15:40:54,238 commands.uninstall INFO Uninstalling k3s. Detailed logs can be found in: platform_logs/k3s_uninstall.log and platform_logs/install.log.
+15:40:54,249 k3s.uninstall ERROR Failed to get data folder location.
+15:40:54,249 k3s.uninstall ERROR (404)
+Reason: Not Found
+HTTP response headers: HTTPHeaderDict({'Audit-Id': '17460949-f6e5-40b6-9c41-d5e212fdb18d', 'Cache-Control': 'no-cache, private', 'Content-Type': 'application/json', 'X-Kubernetes-Pf-Flowschema-Uid': '4c6e110b-9c0d-4c43-ae40-d3eef372c0f5', 'X-Kubernetes-Pf-Prioritylevel-Uid': '0da898c9-53f1-438f-99c9-bba9597bfada', 'Date': 'Sun, 09 Aug 2026 08:40:54 GMT', 'Content-Length': '232'})
+HTTP response body: {"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"persistentvolumes \"data-storage-volume\" not found","reason":"NotFound","details":{"name":"data-storage-volume","kind":"persistentvolumes"},"code":404}
+
+
+15:40:55,352 k3s.uninstall ERROR Failed to remove the contents of the data folder.
+15:40:55,352 k3s.uninstall ERROR 

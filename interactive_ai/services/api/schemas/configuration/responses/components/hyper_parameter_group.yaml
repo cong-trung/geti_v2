@@ -9,9 +9,7 @@ properties:
     minLength: 26
     maxLength: 27
     example: "60d31793d5f1fb7e6e3c1a4c-1"
-    description: "ID of the hyper parameter group. The first 24 characters refer to the ID of the underlying
-    HyperParameter object. This is followed by a dash ('-') and the group number (0 to 99) of this particular hyper
-    parameter group."
+    description: "ID of the hyper parameter group. The first 24 characters refer to the ID of the underlying HyperParameter object. This is followed by a dash ('-') and the group number (0 to 99) of this particular hyper parameter group."
   type:
     type: string
     description: Type of the configurable parameters. For a hyper parameter group the type is always 'PARAMETER_GROUP'.

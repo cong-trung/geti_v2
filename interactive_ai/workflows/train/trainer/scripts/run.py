@@ -51,7 +51,7 @@ def execute(work_dir: Path) -> None:
 
 if __name__ == "__main__":
     client = None
-    log_file = "otx-full.log"
+    log_file = "/tmp/otx-full.log"
     # Add File logging handler
     root_logger = logging.getLogger(None)
     root_logger.addHandler(
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         )
     )
 
-    with open("primary.pid", "w") as fp:
+    with open("/tmp/primary.pid", "w") as fp:
         pid = os.getpid()
         fp.write(str(pid))
         logger.info(f"Primary PID: {pid}")

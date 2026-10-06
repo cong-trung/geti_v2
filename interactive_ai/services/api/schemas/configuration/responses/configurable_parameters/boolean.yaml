@@ -21,14 +21,11 @@ properties:
   template_type:
     type: string
     enum: [input]
-    description: "Describes the template type of the parameter. 'selectable' is used for parameters with a fixed set of
-    possible values. 'input' is used for parameters that allow free input, possibly restricted to a certain range.
-    Template_type is always 'input' for a configurable boolean."
+    description: "Describes the template type of the parameter. 'selectable' is used for parameters with a fixed set of possible values. 'input' is used for parameters that allow free input, possibly restricted to a certain range. Template_type is always 'input' for a configurable boolean."
   data_type:
     type: string
     enum: [boolean]
-    description: "Describes the type of parameter. Parameters can be integers, floats, boolean or string. Data_type is
-    always 'boolean' for a configurable boolean."
+    description: "Describes the type of parameter. Parameters can be integers, floats, boolean or string. Data_type is always 'boolean' for a configurable boolean."
   ui_rules:
     type: object
     description: Not implemented at this moment

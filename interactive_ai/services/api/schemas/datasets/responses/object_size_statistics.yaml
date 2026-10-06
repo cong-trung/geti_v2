@@ -37,8 +37,7 @@ items:
           type: number
           format: int32
     size_distribution:
-      description: "Information on the size distribution of annotation shapes. Contains a list of width/height for
-      every object."
+      description: "Information on the size distribution of annotation shapes. Contains a list of width/height for every object."
       type: array
       items:
         type: array

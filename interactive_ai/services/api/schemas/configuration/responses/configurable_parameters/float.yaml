@@ -23,14 +23,11 @@ properties:
   template_type:
     type: string
     enum: [input]
-    description: "Describes the template type of the parameter. 'selectable' is used for parameters with a fixed set of
-    possible values. 'input' is used for parameters that allow free input, possibly restricted to a certain range.
-    Template_type is always 'input' for a configurable float."
+    description: "Describes the template type of the parameter. 'selectable' is used for parameters with a fixed set of possible values. 'input' is used for parameters that allow free input, possibly restricted to a certain range. Template_type is always 'input' for a configurable float."
   data_type:
     type: string
     enum: [float]
-    description: "Describes the type of parameter. Parameters can be integers, floats, boolean or string. Data_type is
-    always 'float' for a configurable float."
+    description: "Describes the type of parameter. Parameters can be integers, floats, boolean or string. Data_type is always 'float' for a configurable float."
   min_value:
     type: number
     format: float

@@ -54,10 +54,7 @@ properties:
                   task_type:
                     type: string
                     description: OTX Task type name in lowercase
-                    enum: [
-                      dataset, classification, segmentation, detection, crop, instance_segmentation, keypoint_detection,
-                      anomaly, rotated_detection,
-                    ]
+                    enum: [dataset, classification, segmentation, detection, crop, instance_segmentation, keypoint_detection, anomaly, rotated_detection]
                   labels:
                     type: array
                     items:

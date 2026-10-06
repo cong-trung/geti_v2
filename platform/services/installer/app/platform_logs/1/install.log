@@ -1,0 +1,82 @@
+15:25:03,474 commands.install INFO 2.13.1-de29b7ba Running platform installer...
+15:25:03,475 cli_utils.checks INFO Running check: check_user_id
+15:25:03,475 cli_utils.checks INFO Running check: check_os_version
+15:25:03,475 checks.os DEBUG Checking OS version with `grep ^PRETTY /etc/os-release`
+15:25:03,477 checks.os DEBUG Local OS: Ubuntu 24.04.4 LTS, required OS: Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, Ubuntu 25.04, Red Hat Enterprise Linux 9.
+15:25:03,477 cli_utils.checks INFO Running check: check_internet_connection
+15:25:03,477 checks.internet INFO Checking Internet access.
+15:25:03,477 checks.internet DEBUG Sending request to http://ghcr.io...
+15:25:03,478 urllib3.connectionpool DEBUG Starting new HTTP connection (1): proxy-dmz.intel.com:911
+15:25:03,696 urllib3.connectionpool DEBUG http://proxy-dmz.intel.com:911 "HEAD http://ghcr.io/ HTTP/1.1" 301 0
+15:25:03,698 checks.internet DEBUG Internet is accessible.
+15:25:03,699 cli_utils.checks INFO Running check: check_dns_ipv4_handling
+15:25:03,699 checks.dns INFO Checking IPv4 DNS resolve.
+15:25:03,699 checks.dns DEBUG Resolving DNS to example.com
+15:25:03,762 checks.dns DEBUG DNS did resolve to example.com
+15:25:05,754 cli_utils.checks INFO Running check: check_local_cpu
+15:25:05,754 checks.resources INFO Checking number of CPU cores.
+15:25:05,754 checks.resources DEBUG PLATFORM_CPU_CORES_MIN: 16, available logical CPU cores: 20.
+15:25:05,755 cli_utils.checks INFO Running check: check_local_mem
+15:25:05,755 checks.resources INFO Checking available memory size.
+15:25:05,755 checks.resources DEBUG Memory size requirements: 64 GB, memory available: 66.86 GB.
+15:25:05,756 cli_utils.checks INFO Running check: check_local_disk
+15:25:05,756 checks.resources INFO Checking size of available disk space.
+15:25:05,756 checks.resources DEBUG Disk space requirements: 500 GB, disk space available: 864.83 GB.
+15:25:05,756 checks.resources INFO Checking size of available root disk space.
+15:25:05,756 checks.resources DEBUG Root filesystem requirements: 40 GB, root disk space available: 864.83 GB.
+15:25:05,757 cli_utils.checks INFO Running check: check_local_gpu
+15:25:05,757 checks.resources INFO Checking GPU card requirements.
+15:25:05,757 checks.resources INFO Checking GPU card requirements.
+15:25:05,849 checks.resources ERROR Error shutting down NVML: Uninitialized
+15:25:05,849 checks.resources DEBUG Getting the list of Intel GPU with `xpu-smi discovery`
+15:25:05,850 checks.resources DEBUG Getting the list of Intel GPU failed with [Errno 2] No such file or directory: 'xpu-smi'
+15:25:05,850 checks.resources DEBUG Getting the list of Intel GPU drivers with clinfo|grep "Device Name"|grep Intel
+15:25:05,851 checks.resources DEBUG Checking the installed Intel GPU driver failed with Command 'clinfo|grep "Device Name"|grep Intel' returned non-zero exit status 1.
+15:25:05,851 checks.resources INFO GPU provider: nvidia
+15:25:05,851 checks.resources DEBUG Found nVidia GPUs: NVIDIA GeForce RTX 5090, mem=32607MiB
+15:25:05,852 cli_utils.checks INFO Running check: check_gpu_driver_version
+15:25:05,852 checks.resources INFO Checking GPU driver version.
+15:25:05,852 __main__ ERROR [Errno 2] No such file or directory: 'nvidia-smi'
+Traceback (most recent call last):
+  File "/home/sysc/geti_v2/platform/services/installer/app/cli_utils/checks.py", line 43, in _run_check
+    check_function(spinner=spinner)
+TypeError: check_gpu_driver_version() got an unexpected keyword argument 'spinner'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sysc/geti_v2/platform/services/installer/app/platform_installer.py", line 43, in <module>
+    cli()
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/rich_click/rich_group.py", line 21, in main
+    return super().main(*args, standalone_mode=False, **kwargs)
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/click/core.py", line 1688, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+  File "/home/sysc/geti_v2/platform/services/installer/app/commands/install.py", line 487, in install
+    run_installation_checks(config=config)
+  File "/home/sysc/geti_v2/platform/services/installer/app/commands/install.py", line 450, in run_installation_checks
+    install_checks(config=config)
+  File "/home/sysc/geti_v2/platform/services/installer/app/commands/install.py", line 230, in install_checks
+    run_checks(checks=checks)
+  File "/home/sysc/geti_v2/platform/services/installer/app/cli_utils/checks.py", line 60, in run_checks
+    _run_check(check_function=check_function)
+  File "/home/sysc/geti_v2/platform/services/installer/app/cli_utils/checks.py", line 45, in _run_check
+    check_function()
+  File "/home/sysc/geti_v2/platform/services/installer/app/checks/resources.py", line 145, in check_gpu_driver_version
+    nvidia_smi_output = subprocess.check_output(
+  File "/home/sysc/.local/share/uv/python/cpython-3.10.18-linux-x86_64-gnu/lib/python3.10/subprocess.py", line 421, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/home/sysc/.local/share/uv/python/cpython-3.10.18-linux-x86_64-gnu/lib/python3.10/subprocess.py", line 503, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/home/sysc/.local/share/uv/python/cpython-3.10.18-linux-x86_64-gnu/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/home/sysc/.local/share/uv/python/cpython-3.10.18-linux-x86_64-gnu/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'nvidia-smi'

@@ -106,7 +106,7 @@ lint-chart-default: build-chart
 
 publish-chart-default: build-chart
 	@echo "Publishing chart for component: ${COMPONENT_NAME}"
-	helm push ${TARGET_DIR}/${COMPONENT_NAME}-${TAG}.tgz oci://${CHARTS_REGISTRY}
+	helm push --plain-http ${TARGET_DIR}/${COMPONENT_NAME}-${TAG}.tgz oci://${CHARTS_REGISTRY}
 
 clean:
 	@echo "Removing: $(TARGET_DIR)"

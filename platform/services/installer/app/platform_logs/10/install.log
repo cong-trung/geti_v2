@@ -1,0 +1,12 @@
+16:15:02,14 commands.uninstall INFO Running platform uninstaller...
+16:15:02,14 cli_utils.checks INFO Running check: check_user_id
+16:15:02,14 cli_utils.checks INFO Running check: check_internet_connection
+16:15:02,14 checks.internet INFO Checking Internet access.
+16:15:02,14 checks.internet DEBUG Sending request to http://ghcr.io...
+16:15:02,15 urllib3.connectionpool DEBUG Starting new HTTP connection (1): proxy-dmz.intel.com:911
+16:15:02,200 urllib3.connectionpool DEBUG http://proxy-dmz.intel.com:911 "HEAD http://ghcr.io/ HTTP/1.1" 301 0
+16:15:02,201 checks.internet DEBUG Internet is accessible.
+16:15:02,202 cli_utils.checks INFO Running check: check_if_k3s_installed_by_platform_installer
+16:15:02,202 checks.k3s INFO Checking if k3s was installed by platform installer.
+16:15:02,202 checks.k3s DEBUG Checking whether impt_k3s stub file exists in /etc/rancher/k3s directory...
+16:15:02,202 cli_utils.checks DEBUG Kubernetes cluster not installed by the platform installer.

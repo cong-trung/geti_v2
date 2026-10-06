@@ -3,9 +3,7 @@ get:
   tags:
     - Configuration
   summary: Get the current configuration for all tasks in the project's task chain.
-  description: "This endpoint pulls the configuration for all tasks in the project. For every task in the project, the
-  configuration is subdivided into components. Examples of configuration components are the deep learning parameters,
-  postprocessing parameters or subset-related parameters. Some components are further divided into parameter groups."
+  description: "This endpoint pulls the configuration for all tasks in the project. For every task in the project, the configuration is subdivided into components. Examples of configuration components are the deep learning parameters, postprocessing parameters or subset-related parameters. Some components are further divided into parameter groups."
   operationId: GetTaskChainConfiguration
   parameters:
     - $ref: "../../parameters/path/organization_id.yaml"
@@ -43,8 +41,7 @@ post:
   tags:
     - Configuration
   summary: Set the configuration for all tasks in the projects' task chain.
-  description: "This endpoint sets the configuration for the entire task chain. For every task in the chain, the
-  configuration is subdivided into components, and every component is divided into parameter groups."
+  description: "This endpoint sets the configuration for the entire task chain. For every task in the chain, the configuration is subdivided into components, and every component is divided into parameter groups."
   operationId: SetTaskChainConfiguration
   parameters:
     - $ref: "../../parameters/path/organization_id.yaml"

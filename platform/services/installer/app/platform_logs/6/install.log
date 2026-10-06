@@ -1,0 +1,53 @@
+15:43:23,491 commands.install INFO 2.13.1-de29b7ba Running platform installer...
+15:43:23,492 cli_utils.checks INFO Running check: check_user_id
+15:43:23,492 cli_utils.checks INFO Running check: check_os_version
+15:43:23,492 checks.os DEBUG Checking OS version with `grep ^PRETTY /etc/os-release`
+15:43:23,494 checks.os DEBUG Local OS: Ubuntu 24.04.4 LTS, required OS: Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, Ubuntu 25.04, Red Hat Enterprise Linux 9.
+15:43:23,494 cli_utils.checks INFO Running check: check_internet_connection
+15:43:23,494 checks.internet INFO Checking Internet access.
+15:43:23,494 checks.internet DEBUG Sending request to http://ghcr.io...
+15:43:23,495 urllib3.connectionpool DEBUG Starting new HTTP connection (1): proxy-dmz.intel.com:911
+15:43:23,678 urllib3.connectionpool DEBUG http://proxy-dmz.intel.com:911 "HEAD http://ghcr.io/ HTTP/1.1" 301 0
+15:43:23,679 checks.internet DEBUG Internet is accessible.
+15:43:23,679 cli_utils.checks INFO Running check: check_dns_ipv4_handling
+15:43:23,679 checks.dns INFO Checking IPv4 DNS resolve.
+15:43:23,679 checks.dns DEBUG Resolving DNS to example.com
+15:43:23,726 checks.dns DEBUG DNS did resolve to example.com
+15:43:26,156 cli_utils.checks INFO Running check: check_local_cpu
+15:43:26,156 checks.resources INFO Checking number of CPU cores.
+15:43:26,156 checks.resources DEBUG PLATFORM_CPU_CORES_MIN: 16, available logical CPU cores: 20.
+15:43:26,156 cli_utils.checks INFO Running check: check_local_mem
+15:43:26,156 checks.resources INFO Checking available memory size.
+15:43:26,156 checks.resources DEBUG Memory size requirements: 64 GB, memory available: 66.86 GB.
+15:43:26,156 cli_utils.checks INFO Running check: check_local_disk
+15:43:26,156 checks.resources INFO Checking size of available disk space.
+15:43:26,157 checks.resources DEBUG Disk space requirements: 500 GB, disk space available: 849.52 GB.
+15:43:26,157 checks.resources INFO Checking size of available root disk space.
+15:43:26,157 checks.resources DEBUG Root filesystem requirements: 40 GB, root disk space available: 849.52 GB.
+15:43:26,157 cli_utils.checks INFO Running check: check_local_gpu
+15:43:26,157 checks.resources INFO Checking GPU card requirements.
+15:43:26,157 checks.resources INFO Checking GPU card requirements.
+15:43:26,213 checks.resources ERROR Error shutting down NVML: Uninitialized
+15:43:26,213 checks.resources DEBUG Getting the list of Intel GPU with `xpu-smi discovery`
+15:43:26,214 checks.resources DEBUG Getting the list of Intel GPU failed with [Errno 2] No such file or directory: 'xpu-smi'
+15:43:26,214 checks.resources DEBUG Getting the list of Intel GPU drivers with clinfo|grep "Device Name"|grep Intel
+15:43:26,215 checks.resources DEBUG Checking the installed Intel GPU driver failed with Command 'clinfo|grep "Device Name"|grep Intel' returned non-zero exit status 1.
+15:43:26,215 checks.resources INFO GPU provider: nvidia
+15:43:26,215 checks.resources DEBUG Found nVidia GPUs: NVIDIA GeForce RTX 5090, mem=32607MiB
+15:43:26,216 cli_utils.checks INFO Running check: check_gpu_driver_version
+15:43:26,216 checks.resources INFO Checking GPU driver version.
+15:43:26,249 checks.resources DEBUG GPU driver version matched.
+15:43:26,250 cli_utils.checks INFO Running check: check_k8s_is_not_installed
+15:43:26,250 checks.k8s INFO Checking whether Kubernetes is not installed...
+15:43:26,250 cli_utils.checks DEBUG Port 6443 is in use. It seems Kubernetes is already installed on this machine.
+15:43:26,250 cli_utils.checks INFO Running check: check_required_ports_availability
+15:43:26,250 checks.ports INFO Checking whether required ports [80, 443, 30000] are available.
+15:43:26,250 checks.ports DEBUG Port 80 is available.
+15:43:26,250 checks.ports DEBUG Port 443 is available.
+15:43:26,250 checks.ports DEBUG Port 30000 is available.
+15:43:26,251 cli_utils.checks INFO Running check: check_tools_configuration
+15:43:26,251 checks.tools DEBUG Checking curl is installed
+15:43:26,258 checks.tools DEBUG curl is installed.
+15:43:26,258 checks.tools DEBUG Checking if snap is installed
+15:43:26,428 checks.tools DEBUG snap is installed.
+15:43:26,428 checks.tools DEBUG Checking if curl is installed by snap.

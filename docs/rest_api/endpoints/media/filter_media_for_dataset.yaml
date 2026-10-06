@@ -2,12 +2,7 @@ post:
   tags:
     - Training dataset versions
   summary: Retrieve specific media items by applying a query on the training revision
-  description: "Allows the user to quickly filter through their training revision by supplying one or more filters to match media
-  items against. Currently you can filter on 'media_upload_date', 'media_height', 'media_width' , 'media_name', 'label_id', 
-  'annotation_scene_state', 'annotation_creation_date', 'shape_type', 'shape_area_percentage', 'shape_area_pixel', 'subset'
-   and 'user_name'. The following operators can be used 'greater', 'less', 'greater_or_equal', 'less_or_equal', 'equal', 
-  'not_equal', 'in' and 'not_in'. Not all combinations of filter and operator can be used. If a combination is not 
-  supported then the endpoint will respond with the possible operators that are allowed for the filter."
+  description: "Allows the user to quickly filter through their training revision by supplying one or more filters to match media items against. Currently you can filter on 'media_upload_date', 'media_height', 'media_width' , 'media_name', 'label_id', 'annotation_scene_state', 'annotation_creation_date', 'shape_type', 'shape_area_percentage', 'shape_area_pixel', 'subset' and 'user_name'. The following operators can be used 'greater', 'less', 'greater_or_equal', 'less_or_equal', 'equal', 'not_equal', 'in' and 'not_in'. Not all combinations of filter and operator can be used. If a combination is not supported then the endpoint will respond with the possible operators that are allowed for the filter."
   operationId: FilterMediaInTrainingRevision
   parameters:
     - $ref: '../../parameters/path/organization_id.yaml'

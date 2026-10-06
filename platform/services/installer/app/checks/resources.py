@@ -8,6 +8,7 @@ A module containing local resources check functions.
 import logging
 import os
 import re
+import shutil
 import subprocess
 from subprocess import CalledProcessError, TimeoutExpired
 
@@ -142,8 +143,13 @@ def check_gpu_driver_version(config: InstallationConfig | UpgradeConfig) -> None
     logger.info("Checking GPU driver version.")
     if config.gpu_provider.value == GPU_PROVIDER_NVIDIA:
         try:
+            # broaden PATH to cover WSL and other non-standard nvidia-smi locations
+            search_path = os.environ.get("PATH", "") + ":/usr/lib/wsl/lib:/usr/bin:/usr/local/bin"
+            nvidia_smi = shutil.which("nvidia-smi", path=search_path)
+            if nvidia_smi is None:
+                raise ResourcesCheckError("nvidia-smi not found in PATH")
             nvidia_smi_output = subprocess.check_output(
-                ["nvidia-smi", "--query-gpu=driver_version", "--format=csv,noheader,nounits"]  # noqa: S607
+                [nvidia_smi, "--query-gpu=driver_version", "--format=csv,noheader,nounits"]
             )
             nvidia_driver_versions = nvidia_smi_output.decode("utf-8").strip().split("\n")
             for nvidia_driver_version in nvidia_driver_versions:

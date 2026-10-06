@@ -1,0 +1,9 @@
++ id -u
++ [ 0 -eq 0 ]
++ K3S_DATA_DIR=/var/lib/rancher/k3s
++ /usr/local/bin/k3s-killall.sh
++ [ -s /etc/systemd/system/k3s.service ]
++ basename /etc/systemd/system/k3s.service
++ systemctl stop k3s.service
++ [ -x /etc/init.d/k3s* ]
++ killtree 180696 180704 180727 181636 181872 182457 183155 183165 183187 183875 184325 184780 184888 185465 186270 187659

@@ -3,9 +3,7 @@ get:
   tags:
     - Configuration
   summary: Get the current configuration for a specific task
-  description: "This endpoint pulls the configuration for a specific task. The configuration is subdivided into
-  components, and every component is divided into parameter groups. This endpoint can also be used to pull the
-  configurable parameters related to a single model or an algorithm, from a trainable task."
+  description: "This endpoint pulls the configuration for a specific task. The configuration is subdivided into components, and every component is divided into parameter groups. This endpoint can also be used to pull the configurable parameters related to a single model or an algorithm, from a trainable task."
   operationId: GetTaskConfiguration
   parameters:
     - $ref: "../../parameters/path/organization_id.yaml"
@@ -61,8 +59,7 @@ post:
   tags:
     - Configuration
   summary: Set the configuration for a specific task.
-  description: "This endpoint sets the configuration for a specific task. The configuration is subdivided into
-  components, and every component is divided into parameter groups."
+  description: "This endpoint sets the configuration for a specific task. The configuration is subdivided into components, and every component is divided into parameter groups."
   operationId: SetTaskConfiguration
   parameters:
     - $ref: "../../parameters/path/organization_id.yaml"

@@ -9,7 +9,7 @@ COPY --link --from=libs . libs
 WORKDIR /interactive_ai/workflows/train/trainer
 RUN chown -R 10001:10001 /interactive_ai/workflows/train/trainer
 
-COPY --link --from=ghcr.io/astral-sh/uv:0.6.12@sha256:515b886e8eb99bcf9278776d8ea41eb4553a794195ef5803aa7ca6258653100d /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.6.12@sha256:515b886e8eb99bcf9278776d8ea41eb4553a794195ef5803aa7ca6258653100d /uv /bin/uv
 COPY --link uv.lock uv.lock
 COPY --link pyproject.toml pyproject.toml
 
@@ -41,11 +41,12 @@ RUN apt-get update && \
     pip3 uninstall -y setuptools pip wheel && \
     rm -rf /root/.cache/pip
 
-RUN wget -qO /tmp/intel-graphics.key https://repositories.intel.com/gpu/intel-graphics.key && \
+RUN NO_PROXY="" no_proxy="" \
+    wget -qO /tmp/intel-graphics.key https://repositories.intel.com/gpu/intel-graphics.key && \
     gpg --yes --dearmor --output /usr/share/keyrings/intel-graphics.gpg /tmp/intel-graphics.key
 RUN echo "deb [arch=amd64,i386 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://repositories.intel.com/gpu/ubuntu jammy unified" | tee /etc/apt/sources.list.d/intel-gpu-jammy.list
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+RUN NO_PROXY="" no_proxy="" apt-get update \
+    && NO_PROXY="" no_proxy="" apt-get install -y --no-install-recommends \
     git libze-intel-gpu1 libze1 intel-opencl-icd clinfo libze-dev intel-ocloc
 # Remove unnecessary packages and files to reduce the final image size
 RUN apt-get purge -y --auto-remove gpg wget && \
@@ -60,7 +61,7 @@ COPY --link --from=libs . libs
 WORKDIR /interactive_ai/workflows/train/trainer
 RUN chown -R 10001:10001 /interactive_ai/workflows/train/trainer
 
-COPY --link --from=ghcr.io/astral-sh/uv:0.6.12@sha256:515b886e8eb99bcf9278776d8ea41eb4553a794195ef5803aa7ca6258653100d /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.6.12@sha256:515b886e8eb99bcf9278776d8ea41eb4553a794195ef5803aa7ca6258653100d /uv /bin/uv
 
 COPY --link scripts/ scripts
 COPY --link run run

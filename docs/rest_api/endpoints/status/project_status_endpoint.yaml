@@ -2,8 +2,7 @@ get:
   tags:
     - Status
   summary: Get project status
-  description: "Get the status of a project. Includes project score, number of required annotations and current state,
-  for the project and on a per-task basis."
+  description: "Get the status of a project. Includes project score, number of required annotations and current state, for the project and on a per-task basis."
   operationId: GetProjectStatus
   parameters:
     - $ref: "../../parameters/path/organization_id.yaml"

@@ -2,8 +2,7 @@ get:
   tags:
     - Status
   summary: Get incremental learning status
-  description: "Get the incremental learning status of a project. This contains information on the number of
-  annotations that need to be added before training will be started, on a per-label and per-task basis."
+  description: "Get the incremental learning status of a project. This contains information on the number of annotations that need to be added before training will be started, on a per-label and per-task basis."
   operationId: GetIncrementalLearningStatus
   parameters:
     - $ref: "../../parameters/path/organization_id.yaml"

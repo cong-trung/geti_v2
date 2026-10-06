@@ -2,8 +2,7 @@ get:
   tags:
     - Active Learning
   summary: Get the active dataset
-  description: "Retrieve active dataset for a project. The active dataset is the set of images and video frames that
-   are suggested for annotation by the active learning algorithm."
+  description: "Retrieve active dataset for a project. The active dataset is the set of images and video frames that are suggested for annotation by the active learning algorithm."
   operationId: GetActiveDataset
   parameters:
     - $ref: '../../parameters/path/organization_id.yaml'

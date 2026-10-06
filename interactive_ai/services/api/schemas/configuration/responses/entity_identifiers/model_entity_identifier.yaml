@@ -9,6 +9,5 @@ properties:
     $ref: "../../../mongo_id.yaml"
   type:
     type: string
-    description: "Describes the type of the configurable parameters. For hyper parameters, type is set to
-      HYPER_PARAMETERS."
+    description: "Describes the type of the configurable parameters. For hyper parameters, type is set to HYPER_PARAMETERS."
     enum: ["HYPER_PARAMETERS"]

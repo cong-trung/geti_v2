@@ -22,7 +22,7 @@ func BuildGetiCookie(r *http.Request) (http.Cookie, error) {
 		Value:    value,
 		HttpOnly: true,
 		Path:     "/",
-		SameSite: http.SameSiteStrictMode,
+		SameSite: http.SameSiteLaxMode, // Strict blocks cookie after OAuth redirect
 		Secure:   true,
 		MaxAge:   maxAge,
 	}, nil

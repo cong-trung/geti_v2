@@ -1,0 +1,20 @@
+15:56:49,267 commands.uninstall INFO Running platform uninstaller...
+15:56:49,268 cli_utils.checks INFO Running check: check_user_id
+15:56:49,268 cli_utils.checks INFO Running check: check_internet_connection
+15:56:49,268 checks.internet INFO Checking Internet access.
+15:56:49,268 checks.internet DEBUG Sending request to http://ghcr.io...
+15:56:49,269 urllib3.connectionpool DEBUG Starting new HTTP connection (1): proxy-dmz.intel.com:911
+15:56:49,498 urllib3.connectionpool DEBUG http://proxy-dmz.intel.com:911 "HEAD http://ghcr.io/ HTTP/1.1" 301 0
+15:56:49,499 checks.internet DEBUG Internet is accessible.
+15:56:49,499 cli_utils.checks INFO Running check: check_if_k3s_installed_by_platform_installer
+15:56:49,499 checks.k3s INFO Checking if k3s was installed by platform installer.
+15:56:49,499 checks.k3s DEBUG Checking whether impt_k3s stub file exists in /etc/rancher/k3s directory...
+15:56:49,499 checks.k3s DEBUG impt_k3s stub file exists.
+15:56:52,168 commands.uninstall INFO Uninstalling k3s. Detailed logs can be found in: platform_logs/k3s_uninstall.log and platform_logs/install.log.
+15:56:52,171 urllib3.connectionpool WARNING Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPSConnection(host='127.0.0.1', port=6443): Failed to establish a new connection: [Errno 111] Connection refused")': /api/v1/persistentvolumes/data-storage-volume
+15:56:52,171 urllib3.connectionpool WARNING Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPSConnection(host='127.0.0.1', port=6443): Failed to establish a new connection: [Errno 111] Connection refused")': /api/v1/persistentvolumes/data-storage-volume
+15:56:52,171 urllib3.connectionpool WARNING Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPSConnection(host='127.0.0.1', port=6443): Failed to establish a new connection: [Errno 111] Connection refused")': /api/v1/persistentvolumes/data-storage-volume
+15:56:52,171 k3s.uninstall ERROR Your deployment seems to be corrupted. Uninstall kubernetes and delete the data folder manually.
+15:56:52,171 k3s.uninstall ERROR HTTPSConnectionPool(host='127.0.0.1', port=6443): Max retries exceeded with url: /api/v1/persistentvolumes/data-storage-volume (Caused by NewConnectionError("HTTPSConnection(host='127.0.0.1', port=6443): Failed to establish a new connection: [Errno 111] Connection refused"))
+15:56:54,621 k3s.uninstall ERROR Failed to remove the contents of the data folder.
+15:56:54,621 k3s.uninstall ERROR 

@@ -678,7 +678,7 @@ func (s *GRPCServer) Logout(ctx context.Context, _ *emptypb.Empty) (*emptypb.Emp
 
 func formatExpiredCookie() string {
 	authCookieName := "geti-cookie"
-	return authCookieName + "=; Max-Age=0; HttpOnly; SameSite=Strict; Secure; Path=/"
+	return authCookieName + "=; Max-Age=0; HttpOnly; SameSite=Lax; Path=/"
 }
 
 func (s *GRPCServer) Delete(_ context.Context, req *pb.UserIdRequest) (*emptypb.Empty, error) {

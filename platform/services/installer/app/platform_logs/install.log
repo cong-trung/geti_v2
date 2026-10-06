@@ -1,0 +1,1806 @@
+16:15:04,359 commands.install INFO 2.13.1-de29b7ba Running platform installer...
+16:15:04,359 cli_utils.checks INFO Running check: check_user_id
+16:15:04,359 cli_utils.checks INFO Running check: check_os_version
+16:15:04,359 checks.os DEBUG Checking OS version with `grep ^PRETTY /etc/os-release`
+16:15:04,361 checks.os DEBUG Local OS: Ubuntu 24.04.4 LTS, required OS: Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, Ubuntu 25.04, Red Hat Enterprise Linux 9.
+16:15:04,362 cli_utils.checks INFO Running check: check_internet_connection
+16:15:04,362 checks.internet INFO Checking Internet access.
+16:15:04,362 checks.internet DEBUG Sending request to http://ghcr.io...
+16:15:04,362 urllib3.connectionpool DEBUG Starting new HTTP connection (1): proxy-dmz.intel.com:911
+16:15:04,531 urllib3.connectionpool DEBUG http://proxy-dmz.intel.com:911 "HEAD http://ghcr.io/ HTTP/1.1" 301 0
+16:15:04,531 checks.internet DEBUG Internet is accessible.
+16:15:04,532 cli_utils.checks INFO Running check: check_dns_ipv4_handling
+16:15:04,532 checks.dns INFO Checking IPv4 DNS resolve.
+16:15:04,532 checks.dns DEBUG Resolving DNS to example.com
+16:15:09,592 checks.dns DEBUG DNS did resolve to example.com
+16:15:11,676 cli_utils.checks INFO Running check: check_local_cpu
+16:15:11,676 checks.resources INFO Checking number of CPU cores.
+16:15:11,676 checks.resources DEBUG PLATFORM_CPU_CORES_MIN: 16, available logical CPU cores: 20.
+16:15:11,676 cli_utils.checks INFO Running check: check_local_mem
+16:15:11,676 checks.resources INFO Checking available memory size.
+16:15:11,677 checks.resources DEBUG Memory size requirements: 64 GB, memory available: 66.86 GB.
+16:15:11,677 cli_utils.checks INFO Running check: check_local_disk
+16:15:11,677 checks.resources INFO Checking size of available disk space.
+16:15:11,677 checks.resources DEBUG Disk space requirements: 500 GB, disk space available: 765.8 GB.
+16:15:11,677 checks.resources INFO Checking size of available root disk space.
+16:15:11,677 checks.resources DEBUG Root filesystem requirements: 40 GB, root disk space available: 765.8 GB.
+16:15:11,678 cli_utils.checks INFO Running check: check_local_gpu
+16:15:11,678 checks.resources INFO Checking GPU card requirements.
+16:15:11,678 checks.resources INFO Checking GPU card requirements.
+16:15:11,759 checks.resources ERROR Error shutting down NVML: Uninitialized
+16:15:11,759 checks.resources DEBUG Getting the list of Intel GPU with `xpu-smi discovery`
+16:15:11,760 checks.resources DEBUG Getting the list of Intel GPU failed with [Errno 2] No such file or directory: 'xpu-smi'
+16:15:11,760 checks.resources DEBUG Getting the list of Intel GPU drivers with clinfo|grep "Device Name"|grep Intel
+16:15:11,762 checks.resources DEBUG Checking the installed Intel GPU driver failed with Command 'clinfo|grep "Device Name"|grep Intel' returned non-zero exit status 1.
+16:15:11,762 checks.resources INFO GPU provider: nvidia
+16:15:11,762 checks.resources DEBUG Found nVidia GPUs: NVIDIA GeForce RTX 5090, mem=32607MiB
+16:15:11,762 cli_utils.checks INFO Running check: check_gpu_driver_version
+16:15:11,762 checks.resources INFO Checking GPU driver version.
+16:15:11,795 checks.resources DEBUG GPU driver version matched.
+16:15:11,795 cli_utils.checks INFO Running check: check_k8s_is_not_installed
+16:15:11,795 checks.k8s INFO Checking whether Kubernetes is not installed...
+16:15:11,795 checks.ports DEBUG Port 6443 is available.
+16:15:11,796 cli_utils.checks INFO Running check: check_required_ports_availability
+16:15:11,796 checks.ports INFO Checking whether required ports [80, 443, 30000] are available.
+16:15:11,796 checks.ports DEBUG Port 80 is available.
+16:15:11,796 checks.ports DEBUG Port 443 is available.
+16:15:11,796 checks.ports DEBUG Port 30000 is available.
+16:15:11,796 cli_utils.checks INFO Running check: check_tools_configuration
+16:15:11,796 checks.tools DEBUG Checking curl is installed
+16:15:11,818 checks.tools DEBUG curl is installed.
+16:15:11,818 checks.tools DEBUG Checking if snap is installed
+16:15:12,31 checks.tools DEBUG snap is installed.
+16:15:12,31 checks.tools DEBUG Checking if curl is installed by snap.
+16:16:27,782 platform_stages.steps.install_system_packages INFO Downloading system packages...
+16:16:27,786 platform_stages.steps.install_system_packages INFO Downloading https://get.helm.sh/helm-v3.16.1-linux-amd64.tar.gz to tools/helm-v3.16.1-linux-amd64.tar.gz...
+16:16:27,786 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): get.helm.sh:443
+16:16:28,334 urllib3.connectionpool DEBUG https://get.helm.sh:443 "GET /helm-v3.16.1-linux-amd64.tar.gz HTTP/1.1" 200 17323067
+16:16:29,987 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/helm-v3.16.1-linux-amd64.tar.gz
+16:16:30,543 platform_stages.steps.install_system_packages INFO Extracted helm to tools/
+16:16:30,543 platform_stages.steps.install_system_packages INFO Removed archive tools/helm-v3.16.1-linux-amd64.tar.gz
+16:16:30,544 platform_stages.steps.install_system_packages INFO Downloading https://github.com/k3s-io/k3s/releases/download/v1.31.0+k3s1/k3s to tools/k3s/k3s...
+16:16:30,544 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): github.com:443
+16:16:31,226 urllib3.connectionpool DEBUG https://github.com:443 "GET /k3s-io/k3s/releases/download/v1.31.0+k3s1/k3s HTTP/1.1" 302 0
+16:16:31,229 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): release-assets.githubusercontent.com:443
+16:16:31,592 urllib3.connectionpool DEBUG https://release-assets.githubusercontent.com:443 "GET /github-production-release-asset/135516270/6045f6b7-cc52-4090-abe1-56f3e2a0ce71?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-08-09T10%3A14%3A57Z&rscd=attachment%3B+filename%3Dk3s&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-08-09T09%3A14%3A45Z&ske=2026-08-09T10%3A14%3A57Z&sks=b&skv=2018-11-09&sig=XAKMYh7sHGDmXPvwivGs3MvuY6Rjlsy71r7VlKHlbF8%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NjI2ODc5MSwibmJmIjoxNzg2MjY2OTkxLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.iCXRQxxA-JNQnEDRnCe5hvoqGwV9-8JrrURuNQKx1JE&response-content-disposition=attachment%3B%20filename%3Dk3s&response-content-type=application%2Foctet-stream HTTP/1.1" 200 68305048
+16:16:37,622 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/k3s/k3s
+16:16:37,623 platform_stages.steps.install_system_packages INFO Downloading https://github.com/k3s-io/k3s/releases/download/v1.31.0+k3s1/k3s-airgap-images-amd64.tar.gz to tools/k3s/k3s-airgap-images-amd64.tar.gz...
+16:16:37,624 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): github.com:443
+16:16:38,730 urllib3.connectionpool DEBUG https://github.com:443 "GET /k3s-io/k3s/releases/download/v1.31.0+k3s1/k3s-airgap-images-amd64.tar.gz HTTP/1.1" 302 0
+16:16:38,731 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): release-assets.githubusercontent.com:443
+16:16:39,92 urllib3.connectionpool DEBUG https://release-assets.githubusercontent.com:443 "GET /github-production-release-asset/135516270/13c9c071-8cfc-44ad-9a8e-5c9e2d641b4b?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-08-09T10%3A10%3A42Z&rscd=attachment%3B+filename%3Dk3s-airgap-images-amd64.tar.gz&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-08-09T09%3A10%3A22Z&ske=2026-08-09T10%3A10%3A42Z&sks=b&skv=2018-11-09&sig=HHkKiVmuU9S6OOkKebipwW7RSWWbY6Wm3L6rwVaYWZs%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NjI3MDU5OSwibmJmIjoxNzg2MjY2OTk5LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.rD_Xc7lSjAUrsu25lY9IuPCXLnwrDOtpfagKLzz5Ec0&response-content-disposition=attachment%3B%20filename%3Dk3s-airgap-images-amd64.tar.gz&response-content-type=application%2Foctet-stream HTTP/1.1" 200 166804310
+16:16:53,821 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/k3s/k3s-airgap-images-amd64.tar.gz
+16:16:53,822 platform_stages.steps.install_system_packages INFO Downloading https://raw.githubusercontent.com/k3s-io/k3s/refs/tags/v1.31.0+k3s1/install.sh to tools/k3s/install.sh...
+16:16:53,823 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): raw.githubusercontent.com:443
+16:16:54,412 urllib3.connectionpool DEBUG https://raw.githubusercontent.com:443 "GET /k3s-io/k3s/refs/tags/v1.31.0+k3s1/install.sh HTTP/1.1" 200 10174
+16:16:54,421 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/k3s/install.sh
+16:16:54,422 platform_stages.steps.install_system_packages INFO Downloading https://archive.ubuntu.com/ubuntu/pool/universe/p/pigz/pigz_2.4-1_amd64.deb to tools/Ubuntu/pigz_2.4-1_amd64.deb...
+16:16:54,423 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): archive.ubuntu.com:443
+16:16:56,19 urllib3.connectionpool DEBUG https://archive.ubuntu.com:443 "GET /ubuntu/pool/universe/p/pigz/pigz_2.4-1_amd64.deb HTTP/1.1" 200 57448
+16:16:56,514 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/pigz_2.4-1_amd64.deb
+16:16:56,515 platform_stages.steps.install_system_packages INFO Downloading https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/nvidia-container-toolkit-base_1.17.8-1_amd64.deb to tools/Ubuntu/nvidia/nvidia-container-toolkit-base_1.17.8-1_amd64.deb...
+16:16:56,516 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): developer.download.nvidia.com:443
+16:16:58,829 urllib3.connectionpool DEBUG https://developer.download.nvidia.com:443 "GET /compute/cuda/repos/ubuntu2004/x86_64/nvidia-container-toolkit-base_1.17.8-1_amd64.deb HTTP/1.1" 200 3796622
+16:16:59,325 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/nvidia/nvidia-container-toolkit-base_1.17.8-1_amd64.deb
+16:16:59,326 platform_stages.steps.install_system_packages INFO Downloading https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/nvidia-container-toolkit_1.17.8-1_amd64.deb to tools/Ubuntu/nvidia/nvidia-container-toolkit_1.17.8-1_amd64.deb...
+16:16:59,327 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): developer.download.nvidia.com:443
+16:17:00,854 urllib3.connectionpool DEBUG https://developer.download.nvidia.com:443 "GET /compute/cuda/repos/ubuntu2004/x86_64/nvidia-container-toolkit_1.17.8-1_amd64.deb HTTP/1.1" 200 1190040
+16:17:01,150 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/nvidia/nvidia-container-toolkit_1.17.8-1_amd64.deb
+16:17:01,151 platform_stages.steps.install_system_packages INFO Downloading https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/libnvidia-container1_1.17.8-1_amd64.deb to tools/Ubuntu/nvidia/libnvidia-container1_1.17.8-1_amd64.deb...
+16:17:01,152 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): developer.download.nvidia.com:443
+16:17:04,166 urllib3.connectionpool DEBUG https://developer.download.nvidia.com:443 "GET /compute/cuda/repos/ubuntu2004/x86_64/libnvidia-container1_1.17.8-1_amd64.deb HTTP/1.1" 200 925622
+16:17:05,209 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/nvidia/libnvidia-container1_1.17.8-1_amd64.deb
+16:17:05,210 platform_stages.steps.install_system_packages INFO Downloading https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/libnvidia-container-tools_1.17.8-1_amd64.deb to tools/Ubuntu/nvidia/libnvidia-container-tools_1.17.8-1_amd64.deb...
+16:17:05,211 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): developer.download.nvidia.com:443
+16:17:06,542 urllib3.connectionpool DEBUG https://developer.download.nvidia.com:443 "GET /compute/cuda/repos/ubuntu2004/x86_64/libnvidia-container-tools_1.17.8-1_amd64.deb HTTP/1.1" 200 22136
+16:17:06,590 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/nvidia/libnvidia-container-tools_1.17.8-1_amd64.deb
+16:17:06,591 platform_stages.steps.install_system_packages INFO System packages downloaded.
+16:17:06,591 platform_stages.steps.install_system_packages INFO Installing system packages...
+dpkg: warning: downgrading pigz from 2.8-1 to 2.4-1
+(Reading database ... 44610 files and directories currently installed.)
+Preparing to unpack .../Ubuntu/pigz_2.4-1_amd64.deb ...
+Unpacking pigz (2.4-1) over (2.8-1) ...
+Setting up pigz (2.4-1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+(Reading database ... 44610 files and directories currently installed.)
+Preparing to unpack .../libnvidia-container-tools_1.17.8-1_amd64.deb ...
+Unpacking libnvidia-container-tools (1.17.8-1) over (1.17.8-1) ...
+Preparing to unpack .../libnvidia-container1_1.17.8-1_amd64.deb ...
+Unpacking libnvidia-container1:amd64 (1.17.8-1) over (1.17.8-1) ...
+Preparing to unpack .../nvidia-container-toolkit-base_1.17.8-1_amd64.deb ...
+Unpacking nvidia-container-toolkit-base (1.17.8-1) over (1.17.8-1) ...
+Preparing to unpack .../nvidia-container-toolkit_1.17.8-1_amd64.deb ...
+Unpacking nvidia-container-toolkit (1.17.8-1) over (1.17.8-1) ...
+Setting up libnvidia-container1:amd64 (1.17.8-1) ...
+Setting up nvidia-container-toolkit-base (1.17.8-1) ...
+Setting up libnvidia-container-tools (1.17.8-1) ...
+Setting up nvidia-container-toolkit (1.17.8-1) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.8) ...
+16:17:07,470 platform_stages.steps.install_system_packages INFO System packages installed.
+16:17:07,470 commands.install INFO Installing k3s. Detailed logs can be found in: platform_logs/k3s_install.log.
+16:17:10,82 checks.os DEBUG Checking OS version with `grep ^PRETTY /etc/os-release`
+16:17:10,83 checks.os DEBUG Checking OS version with `grep ^PRETTY /etc/os-release`
+16:17:10,85 k3s.install INFO envs for k3s installation: {'INSTALL_K3S_SKIP_DOWNLOAD': 'true', 'INSTALL_K3S_VERSION': 'v1.31.0+k3s1', 'INSTALL_K3S_EXEC': '--disable traefik --disable runtimes --service-node-port-range 30000-30050 --node-name=geti --kube-apiserver-arg=enable-admission-plugins=NodeRestriction,ServiceAccount --kube-apiserver-arg=request-timeout=5m0s --kube-apiserver-arg=audit-log-path=/var/lib/rancher/k3s/server/logs/audit.log --kube-apiserver-arg=tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 --kube-apiserver-arg=audit-log-maxbackup=10 --kube-apiserver-arg=event-ttl=1h0m0s --kube-controller-manager-arg=terminated-pod-gc-threshold=1000 --kube-controller-manager-arg=leader-elect-lease-duration=30s --kube-controller-manager-arg=leader-elect-renew-deadline=20s --kube-controller-manager-arg=bind-address=127.0.0.1 --kube-scheduler-arg=bind-address=127.0.0.1 --kubelet-arg=streaming-connection-idle-timeout=5m --kubelet-arg=rotate-server-certificates=true --kubelet-arg=eviction-hard=imagefs.available<5Gi,memory.available<100Mi,nodefs.available<5Gi,nodefs.inodesFree<5% --kubelet-arg=eviction-minimum-reclaim=imagefs.available=1Gi,nodefs.available=1Gi --kubelet-arg=image-gc-low-threshold=0 '}
+16:17:10,86 k3s.install DEBUG Running K3s installer with the configuration:
+INSTALL_K3S_VERSION: v1.31.0+k3s1, INSTALL_K3S_EXEC: --disable traefik --disable runtimes --service-node-port-range 30000-30050 --node-name=geti --kube-apiserver-arg=enable-admission-plugins=NodeRestriction,ServiceAccount --kube-apiserver-arg=request-timeout=5m0s --kube-apiserver-arg=audit-log-path=/var/lib/rancher/k3s/server/logs/audit.log --kube-apiserver-arg=tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 --kube-apiserver-arg=audit-log-maxbackup=10 --kube-apiserver-arg=event-ttl=1h0m0s --kube-controller-manager-arg=terminated-pod-gc-threshold=1000 --kube-controller-manager-arg=leader-elect-lease-duration=30s --kube-controller-manager-arg=leader-elect-renew-deadline=20s --kube-controller-manager-arg=bind-address=127.0.0.1 --kube-scheduler-arg=bind-address=127.0.0.1 --kubelet-arg=streaming-connection-idle-timeout=5m --kubelet-arg=rotate-server-certificates=true --kubelet-arg=eviction-hard=imagefs.available<5Gi,memory.available<100Mi,nodefs.available<5Gi,nodefs.inodesFree<5% --kubelet-arg=eviction-minimum-reclaim=imagefs.available=1Gi,nodefs.available=1Gi --kubelet-arg=image-gc-low-threshold=0 .
+16:17:13,612 k3s.install DEBUG Checking if k3s node is already set up.
+16:17:13,705 k3s.install DEBUG k3s node is not yet ready.
+16:17:23,781 k3s.install DEBUG Config file: '/var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl' not found, skipping.
+16:17:23,781 k3s.install DEBUG Created a stub file /etc/rancher/k3s/impt_k3s to differentiate platform installer k3s installation.
+16:17:23,781 k3s.install DEBUG Adjusting K3s kubeconfig server address.
+16:17:23,782 k3s.detect_ip DEBUG Getting first public IPv4 machine's network interface address.
+16:17:23,782 k3s.detect_ip DEBUG Getting first private IPv4 machine's network interface address.
+16:17:23,782 k3s.install DEBUG Copied /etc/rancher/k3s/k3s.yaml to /etc/rancher/k3s/k3s-remote.yaml.
+16:17:23,785 k3s.install DEBUG Server address in /etc/rancher/k3s/k3s-remote.yaml is set: 10.255.255.254.
+16:17:23,791 k3s.install DEBUG Namespace in /etc/rancher/k3s/k3s-remote.yaml is set to: impt.
+16:17:23,791 commands.install INFO k3s installed successfully. Path to admin kubeconfig: /etc/rancher/k3s/k3s.yaml
+16:17:23,792 k3s.detect_ip DEBUG Getting first public IPv4 machine's network interface address.
+16:17:23,792 k3s.detect_ip DEBUG Getting first private IPv4 machine's network interface address.
+16:17:23,793 platform_stages.steps.create_platform_dir INFO Creating platform install path at '/tmp/impp-install'
+16:17:23,794 platform_stages.steps.create_platform_dir INFO Platform path created.
+16:17:23,794 platform_stages.steps.extract_registry_data INFO External registry used, skipping internal registry extract
+16:17:23,804 platform_utils.helm INFO Generating Jinja template.
+16:17:23,805 platform_utils.helm DEBUG Template: ---
+#  INTEL CONFIDENTIAL
+#
+#  Copyright (C) 2022 Intel Corporation
+#
+#  This software and the related documents are Intel copyrighted materials, and your use of them is governed by
+#  the express license under which they were provided to you ("License"). Unless the License provides otherwise,
+#  you may not use, modify, copy, publish, distribute, disclose or transmit this software or the related documents
+#  without Intel's prior written permission.
+#
+#  This software and the related documents are provided as is, with no express or implied warranties,
+#  other than those that are expressly stated in the License.
+# Copyright (c) 2019, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+apiVersion: node.k8s.io/v1
+kind: RuntimeClass
+metadata:
+  name: nvidia
+handler: nvidia
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: "nvidia"
+  namespace: kube-system
+imagePullSecrets:
+  - name: regcred
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: "nvidia-device-plugin-daemonset"
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: "nvidia-device-plugin-ds"
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: "nvidia-device-plugin-ds"
+    spec:
+      nodeSelector:
+        nvidia.com/gpu: "true"
+      tolerations:
+        # This toleration is deprecated. Kept here for backward compatibility
+        # See https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
+      priorityClassName: system-node-critical
+      runtimeClassName: nvidia
+      serviceAccountName: nvidia
+      containers:
+        
+        - image: nvcr.io/nvidia/k8s-device-plugin:v0.16.2-ubi8
+        
+          name: nvidia-device-plugin-ctr
+          args: ["--fail-on-init-error=false","--device-list-strategy=volume-mounts"]
+          env:
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+            limits:
+              memory: 50Mi
+          volumeMounts:
+            - name: device-plugin
+              mountPath: /var/lib/kubelet/device-plugins
+            - name: dev
+              mountPath: /dev
+      volumes:
+        - name: device-plugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+        - name: dev
+          hostPath:
+            path: /dev
+16:17:23,806 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:17:23,806 platform_stages.steps.configure_gpu INFO Modifying nvidia container runtime configuration...
+16:17:26,189 platform_stages.steps.configure_gpu INFO Nvidia container runtime configuration modified.
+16:17:26,190 platform_stages.steps.configure_gpu INFO Labeling node 'geti' with labels: nvidia.com/gpu=true
+16:17:26,197 platform_stages.steps.configure_gpu INFO Node labeled.
+16:17:26,197 platform_stages.steps.configure_gpu INFO Installing device plugin: 'nvidia-device-plugin.yaml'
+runtimeclass.node.k8s.io/nvidia created
+serviceaccount/nvidia created
+daemonset.apps/nvidia-device-plugin-daemonset created
+16:17:26,311 platform_stages.steps.configure_gpu INFO Device plugin installed.
+16:17:26,320 platform_utils.k8s INFO Creating namespace 'impt' with provided labels and annotations.
+16:17:26,325 platform_utils.k8s INFO Namespace created.
+16:17:26,325 platform_utils.k8s INFO Service account 'default' will have automount service account token disabled.
+16:17:31,335 platform_utils.k8s INFO Service account 'default' will have automount service account token disabled.
+16:17:31,341 platform_utils.k8s INFO Service account is patched.
+16:17:31,344 platform_utils.k8s INFO Creating namespace 'opa-istio' with provided labels and annotations.
+16:17:31,348 platform_utils.k8s INFO Namespace created.
+16:17:31,348 platform_utils.k8s INFO Service account 'default' will have automount service account token disabled.
+16:17:31,352 platform_utils.k8s INFO Service account is patched.
+16:17:31,355 platform_utils.k8s INFO Creating namespace 'istio-system' with provided labels and annotations.
+16:17:31,358 platform_utils.k8s INFO Namespace created.
+16:17:31,359 platform_utils.k8s INFO Service account 'default' will have automount service account token disabled.
+16:17:31,362 platform_utils.k8s INFO Service account is patched.
+16:17:31,365 platform_utils.k8s INFO Creating namespace 'cert-manager' with provided labels and annotations.
+16:17:31,368 platform_utils.k8s INFO Namespace created.
+16:17:31,369 platform_utils.k8s INFO Service account 'default' will have automount service account token disabled.
+16:17:31,372 platform_utils.k8s INFO Service account is patched.
+16:17:31,375 platform_utils.k8s INFO Creating namespace 'flyte' with provided labels and annotations.
+16:17:31,378 platform_utils.k8s INFO Namespace created.
+16:17:31,378 platform_utils.k8s INFO Service account 'default' will have automount service account token disabled.
+16:17:31,381 platform_utils.k8s INFO Service account is patched.
+16:17:31,384 platform_utils.k8s INFO Creating namespace 'impt-jobs-production' with provided labels and annotations.
+16:17:31,387 platform_utils.k8s INFO Namespace created.
+16:17:31,387 platform_utils.k8s INFO Service account 'default' will have automount service account token disabled.
+16:17:31,391 platform_utils.k8s INFO Service account is patched.
+16:17:31,391 platform_utils.helm INFO Generating Jinja template.
+16:17:31,391 platform_utils.helm DEBUG Template: 
+16:17:31,391 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:17:31,392 platform_utils.helm INFO Pulling chart 'reloader', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/reloader:2.13.1-de29b7ba
+Digest: sha256:1b6c462b8cc39c54910f8b5ea2e4f0813dc8bd7a489a89f46b9d31e7510a63a7
+16:17:31,458 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:17:31,458 platform_utils.k8s INFO Check if ip is properly assigned.
+16:17:31,462 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:17:31,462 platform_utils.k8s INFO Check if ip is properly assigned.
+16:17:31,463 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:17:31,464 platform_utils.k8s INFO Check if ip is properly assigned.
+16:17:31,465 platform_utils.helm INFO Installing chart 'reloader' from '/tmp/impp-install/reloader'.
+16:17:31,465 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i reloader --namespace=impt /tmp/impp-install/reloader --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --values=/tmp/impp-install/reloader-values.yaml
+Release "reloader" does not exist. Installing it now.
+NAME: reloader
+LAST DEPLOYED: Sun Aug  9 16:17:31 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+- For a `Deployment` called `foo` have a `ConfigMap` called `foo-configmap`. Then add this annotation to main metadata of your `Deployment`
+  configmap.reloader.stakater.com/reload: "foo-configmap"
+
+- For a `Deployment` called `foo` have a `Secret` called `foo-secret`. Then add this annotation to main metadata of your `Deployment`
+  secret.reloader.stakater.com/reload: "foo-secret"
+
+- After successful installation, your pods will get rolling updates when a change in data of configmap or secret will happen.
+16:18:05,581 platform_utils.helm INFO Pulling chart 'kubelet-csr-approver', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/kubelet-csr-approver:2.13.1-de29b7ba
+Digest: sha256:060d29db6edeb2b302878a8b17851aa4f5fc5629f1deb6f4d3fe38f114e8c4ab
+16:18:05,617 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:18:05,617 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:05,621 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:18:05,621 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:05,622 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:18:05,622 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:05,623 platform_utils.helm INFO Installing chart 'kubelet-csr-approver' from '/tmp/impp-install/kubelet-csr-approver'.
+16:18:05,623 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i kubelet-csr-approver --namespace=kube-system /tmp/impp-install/kubelet-csr-approver --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba
+Release "kubelet-csr-approver" does not exist. Installing it now.
+NAME: kubelet-csr-approver
+LAST DEPLOYED: Sun Aug  9 16:18:05 2026
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 1
+16:18:15,725 platform_utils.helm INFO Pulling chart 'pv-creation', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/pv-creation:2.13.1-de29b7ba
+Digest: sha256:1297f6efd35e6364eaeb0f429be8a51ee2cee06f1451fe395596e5df49101f83
+16:18:15,756 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:18:15,756 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:15,760 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:18:15,760 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:15,761 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:18:15,761 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:15,762 platform_utils.helm INFO Installing chart 'pv' from '/tmp/impp-install/pv-creation'.
+16:18:15,762 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i pv --namespace=impt /tmp/impp-install/pv-creation --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --set=dataStoragePath=/data
+Release "pv" does not exist. Installing it now.
+NAME: pv
+LAST DEPLOYED: Sun Aug  9 16:18:15 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:18:17,870 platform_stages.steps.deploy_crds INFO Deploying chart: cert-manager-crds from /tmp/impp-install/crds/charts/cert-manager-crds
+16:18:17,871 platform_utils.helm INFO Pulling chart 'cert-manager-crds', version '2.13.1-de29b7ba', to '/tmp/impp-install/crds/charts'
+Pulled: localhost:5000/open-edge-platform/geti/helm/cert-manager-crds:2.13.1-de29b7ba
+Digest: sha256:2770a324cfc2dadf3c7f327038060bfddc999af2438dc401a9917a754248b77b
+16:18:17,904 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:18:17,904 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:17,908 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:18:17,908 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:17,909 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:18:17,909 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:17,910 platform_utils.helm INFO Installing chart 'cert-manager-crds' from '/tmp/impp-install/crds/charts/cert-manager-crds'.
+16:18:17,910 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i cert-manager-crds --namespace=impt /tmp/impp-install/crds/charts/cert-manager-crds --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba
+Release "cert-manager-crds" does not exist. Installing it now.
+NAME: cert-manager-crds
+LAST DEPLOYED: Sun Aug  9 16:18:17 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:18:20,164 platform_stages.steps.deploy_crds INFO Successfully deployed chart: cert-manager-crds from /tmp/impp-install/crds/charts/cert-manager-crds
+16:18:20,164 platform_stages.steps.deploy_crds INFO Deploying chart: flyte-crds from /tmp/impp-install/crds/charts/flyte-crds
+16:18:20,164 platform_utils.helm INFO Pulling chart 'flyte-crds', version '2.13.1-de29b7ba', to '/tmp/impp-install/crds/charts'
+Pulled: localhost:5000/open-edge-platform/geti/helm/flyte-crds:2.13.1-de29b7ba
+Digest: sha256:20e6bcc88c4920fbbe9d38d40a44947373886819dd8b1531a866611d757eef27
+16:18:20,194 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:18:20,194 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:20,198 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:18:20,198 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:20,200 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:18:20,200 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:20,201 platform_utils.helm INFO Installing chart 'flyte-crds' from '/tmp/impp-install/crds/charts/flyte-crds'.
+16:18:20,201 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i flyte-crds --namespace=impt /tmp/impp-install/crds/charts/flyte-crds --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba
+Release "flyte-crds" does not exist. Installing it now.
+NAME: flyte-crds
+LAST DEPLOYED: Sun Aug  9 16:18:20 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:18:22,265 platform_stages.steps.deploy_crds INFO Successfully deployed chart: flyte-crds from /tmp/impp-install/crds/charts/flyte-crds
+16:18:22,265 platform_stages.steps.deploy_crds INFO Deploying chart: modelmesh-serving-crds from /tmp/impp-install/crds/charts/modelmesh-serving-crds
+16:18:22,265 platform_utils.helm INFO Pulling chart 'modelmesh-serving-crds', version '2.13.1-de29b7ba', to '/tmp/impp-install/crds/charts'
+Pulled: localhost:5000/open-edge-platform/geti/helm/modelmesh-serving-crds:2.13.1-de29b7ba
+Digest: sha256:c24be1aa2967992f366b9b6a092329887b7f11924d54ea35115c6be6e306959b
+16:18:22,300 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:18:22,300 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:22,304 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:18:22,304 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:22,305 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:18:22,305 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:22,307 platform_utils.helm INFO Installing chart 'modelmesh-serving-crds' from '/tmp/impp-install/crds/charts/modelmesh-serving-crds'.
+16:18:22,307 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i modelmesh-serving-crds --namespace=impt /tmp/impp-install/crds/charts/modelmesh-serving-crds --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba
+Release "modelmesh-serving-crds" does not exist. Installing it now.
+NAME: modelmesh-serving-crds
+LAST DEPLOYED: Sun Aug  9 16:18:22 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:18:24,739 platform_stages.steps.deploy_crds INFO Successfully deployed chart: modelmesh-serving-crds from /tmp/impp-install/crds/charts/modelmesh-serving-crds
+16:18:24,740 platform_stages.steps.deploy_crds INFO Deploying chart: istio-crds from /tmp/impp-install/crds/charts/istio-crds
+16:18:24,740 platform_utils.helm INFO Pulling chart 'istio-crds', version '2.13.1-de29b7ba', to '/tmp/impp-install/crds/charts'
+Pulled: localhost:5000/open-edge-platform/geti/helm/istio-crds:2.13.1-de29b7ba
+Digest: sha256:62c773c0fe4f7f6d7886643643e0666acfab01e948a448ae93d26e6cfba8d9e6
+16:18:24,771 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:18:24,771 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:24,775 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:18:24,775 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:24,776 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:18:24,776 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:24,777 platform_utils.helm INFO Installing chart 'istio-crds' from '/tmp/impp-install/crds/charts/istio-crds'.
+16:18:24,777 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i istio-crds --namespace=impt /tmp/impp-install/crds/charts/istio-crds --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba
+Release "istio-crds" does not exist. Installing it now.
+NAME: istio-crds
+LAST DEPLOYED: Sun Aug  9 16:18:24 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:18:27,258 platform_stages.steps.deploy_crds INFO Successfully deployed chart: istio-crds from /tmp/impp-install/crds/charts/istio-crds
+16:18:27,259 platform_utils.helm INFO Generating Jinja template.
+16:18:27,259 platform_utils.helm DEBUG Template: ---
+# Copyright (C) 2022-2025 Intel Corporation
+# LIMITED EDGE SOFTWARE DISTRIBUTION LICENSE
+
+
+16:18:27,259 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:18:27,260 platform_utils.helm INFO Pulling chart 'cert-manager', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/cert-manager:2.13.1-de29b7ba
+Digest: sha256:67a387db94576546c91630ec081fc22716cc4b2f3ef51a902b41e3c512e1f610
+16:18:27,292 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:18:27,292 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:27,296 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:18:27,296 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:27,297 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:18:27,297 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:27,299 platform_utils.helm INFO Installing chart 'cert-manager' from '/tmp/impp-install/cert-manager'.
+16:18:27,299 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i cert-manager --namespace=cert-manager /tmp/impp-install/cert-manager --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --values=/tmp/impp-install/cert-manager-values.yaml
+Release "cert-manager" does not exist. Installing it now.
+NAME: cert-manager
+LAST DEPLOYED: Sun Aug  9 16:18:27 2026
+NAMESPACE: cert-manager
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+cert-manager v1.14.7 has been deployed successfully!
+
+In order to begin issuing certificates, you will need to set up a ClusterIssuer
+or Issuer resource (for example, by creating a 'letsencrypt-staging' issuer).
+
+More information on the different types of issuers and how to configure them
+can be found in our documentation:
+
+https://cert-manager.io/docs/configuration/
+
+For information on how to configure cert-manager to automatically provision
+Certificates for Ingress resources, take a look at the `ingress-shim`
+documentation:
+
+https://cert-manager.io/docs/usage/ingress/
+16:18:43,731 platform_utils.k8s INFO Get secret 'ca-cert' from namespace 'cert-manager'.
+16:18:48,738 platform_utils.k8s INFO Get secret 'ca-cert' from namespace 'cert-manager'.
+16:18:48,743 platform_utils.k8s INFO Secret is retrieved.
+16:18:48,743 platform_utils.helm INFO Generating Jinja template.
+16:18:48,744 platform_utils.helm DEBUG Template: ---
+#  INTEL CONFIDENTIAL
+#
+#  Copyright (C) 2024 Intel Corporation
+#
+#  This software and the related documents are Intel copyrighted materials, and your use of them is governed by
+#  the express license under which they were provided to you ("License"). Unless the License provides otherwise,
+#  you may not use, modify, copy, publish, distribute, disclose or transmit this software or the related documents
+#  without Intel's prior written permission.
+#
+#  This software and the related documents are provided as is, with no express or implied warranties,
+#  other than those that are expressly stated in the License.
+
+
+16:18:48,744 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:18:48,744 platform_utils.helm INFO Pulling chart 'cert-manager-istio-csr', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/cert-manager-istio-csr:2.13.1-de29b7ba
+Digest: sha256:0bfa107b1567d113de387e9dd04a0912a5f1fd912cf941aed6e5cac1945c8349
+16:18:48,779 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:18:48,779 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:48,783 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:18:48,783 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:48,785 platform_utils.k8s DEBUG Is endpoint ready: True
+16:18:48,785 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:18:48,785 platform_utils.k8s INFO Check if ip is properly assigned.
+16:18:48,786 platform_utils.helm INFO Installing chart 'cert-manager-istio-csr' from '/tmp/impp-install/cert-manager-istio-csr'.
+16:18:48,786 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i cert-manager-istio-csr --namespace=cert-manager /tmp/impp-install/cert-manager-istio-csr --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --values=/tmp/impp-install/cert-manager-istio-csr-values.yaml
+Release "cert-manager-istio-csr" does not exist. Installing it now.
+NAME: cert-manager-istio-csr
+LAST DEPLOYED: Sun Aug  9 16:18:48 2026
+NAMESPACE: cert-manager
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:19:04,960 platform_stages.steps.deploy_internal_registry INFO External registry used, skipping internal registry deploy
+16:19:04,961 platform_utils.helm INFO Pulling chart 'istio-base', version '2.13.1-de29b7ba', to '/tmp/impp-install/istio'
+Pulled: localhost:5000/open-edge-platform/geti/helm/istio-base:2.13.1-de29b7ba
+Digest: sha256:83ccc151e0f0a8259c7a71494dce06adddc3451929c243689b7321ba765c6b9b
+16:19:05,4 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:19:05,4 platform_utils.k8s INFO Check if ip is properly assigned.
+16:19:05,8 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:19:05,8 platform_utils.k8s INFO Check if ip is properly assigned.
+16:19:05,10 platform_utils.k8s DEBUG Is endpoint ready: True
+16:19:05,10 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:19:05,10 platform_utils.k8s INFO Check if ip is properly assigned.
+16:19:05,11 platform_utils.helm INFO Installing chart 'istio-base' from '/tmp/impp-install/istio/istio-base'.
+16:19:05,12 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i istio-base --namespace=istio-system /tmp/impp-install/istio/istio-base --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba
+Release "istio-base" does not exist. Installing it now.
+NAME: istio-base
+LAST DEPLOYED: Sun Aug  9 16:19:05 2026
+NAMESPACE: istio-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+Istio base successfully installed!
+
+To learn more about the release, try:
+  $ helm status istio-base -n istio-system
+  $ helm get all istio-base -n istio-system
+16:19:05,103 platform_utils.helm INFO Generating Jinja template.
+16:19:05,103 platform_utils.helm DEBUG Template: ---
+#  INTEL CONFIDENTIAL
+#
+#  Copyright (C) 2024 Intel Corporation
+#
+#  This software and the related documents are Intel copyrighted materials, and your use of them is governed by
+#  the express license under which they were provided to you ("License"). Unless the License provides otherwise,
+#  you may not use, modify, copy, publish, distribute, disclose or transmit this software or the related documents
+#  without Intel's prior written permission.
+#
+#  This software and the related documents are provided as is, with no express or implied warranties,
+#  other than those that are expressly stated in the License.
+
+global:
+  
+  proxy:
+    excludeIPRanges: "10.43.0.1/32"
+16:19:05,103 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:19:05,104 platform_utils.helm INFO Pulling chart 'istio-istiod', version '2.13.1-de29b7ba', to '/tmp/impp-install/istio'
+Pulled: localhost:5000/open-edge-platform/geti/helm/istio-istiod:2.13.1-de29b7ba
+Digest: sha256:5f9d859d71c25ec812f20de7064d323e03c47cc12b3fbbfe8eb7e0f577dbf8a2
+16:19:05,141 platform_utils.helm INFO Installing chart 'istio-istiod' from '/tmp/impp-install/istio/istio-istiod'.
+16:19:05,141 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i istio-istiod --namespace=istio-system /tmp/impp-install/istio/istio-istiod --history-max=8 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --values=/tmp/impp-install/istio-istiod-values.yaml
+Release "istio-istiod" does not exist. Installing it now.
+NAME: istio-istiod
+LAST DEPLOYED: Sun Aug  9 16:19:05 2026
+NAMESPACE: istio-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+"istiod" successfully installed!
+
+To learn more about the release, try:
+  $ helm status istio-istiod -n istio-system
+  $ helm get all istio-istiod -n istio-system
+
+Next steps:
+  * Deploy a Gateway: https://istio.io/latest/docs/setup/additional-setup/gateway/
+  * Try out our tasks to get started on common configurations:
+    * https://istio.io/latest/docs/tasks/traffic-management
+    * https://istio.io/latest/docs/tasks/security/
+    * https://istio.io/latest/docs/tasks/policy-enforcement/
+  * Review the list of actively supported releases, CVE publications and our hardening guide:
+    * https://istio.io/latest/docs/releases/supported-releases/
+    * https://istio.io/latest/news/security/
+    * https://istio.io/latest/docs/ops/best-practices/security/
+
+For further documentation see https://istio.io website
+16:19:25,440 platform_utils.helm INFO Generating Jinja template.
+16:19:25,442 platform_utils.helm DEBUG Template: ---
+#  INTEL CONFIDENTIAL
+#
+#  Copyright (C) 2024 Intel Corporation
+#
+#  This software and the related documents are Intel copyrighted materials, and your use of them is governed by
+#  the express license under which they were provided to you ("License"). Unless the License provides otherwise,
+#  you may not use, modify, copy, publish, distribute, disclose or transmit this software or the related documents
+#  without Intel's prior written permission.
+#
+#  This software and the related documents are provided as is, with no express or implied warranties,
+#  other than those that are expressly stated in the License.
+
+env:
+  WASM_INSECURE_REGISTRIES: "localhost:5000"
+
+global:
+  registry_address: "localhost:5000"
+
+api_gateway:
+  feature_flags_data:
+      FEATURE_FLAG_ACC_SVC_MOD: 'false'
+      FEATURE_FLAG_ALLOW_EXTERNAL_KEY_PROJECT_IMPORT: 'true'
+      FEATURE_FLAG_AMBIENT_MESH: 'false'
+      FEATURE_FLAG_ANALYTICS_WORKFLOW_ID: 'true'
+      FEATURE_FLAG_ANNOTATION_HOLE: 'true'
+      FEATURE_FLAG_ANOMALY_REDUCTION: 'true'
+      FEATURE_FLAG_ASYNCHRONOUS_MEDIA_PREPROCESSING: 'true'
+      FEATURE_FLAG_CAMERA_VIDEO_UPLOAD: 'false'
+      FEATURE_FLAG_CLASSIFICATION_RANGES: 'true'
+      FEATURE_FLAG_CREDIT_SYSTEM: 'false'
+      FEATURE_FLAG_DECORD_VIDEO_DECODER: 'false'
+      FEATURE_FLAG_FP16_INFERENCE: 'true'
+      FEATURE_FLAG_KEYPOINT_DETECTION: 'true'
+      FEATURE_FLAG_KEYPOINT_DETECTION_DATASET_IE: 'true'
+      FEATURE_FLAG_LABELS_REORDERING: 'true'
+      FEATURE_FLAG_MAINTENANCE_BANNER: 'false'
+      FEATURE_FLAG_MANAGE_USERS: 'false'
+      FEATURE_FLAG_MANAGE_USERS_ROLES: 'true'
+      FEATURE_FLAG_MIGRATE_VFR_TO_CFR_VIDEOS: 'false'
+      FEATURE_FLAG_OBJECT_STORAGE_OP: 'true'
+      FEATURE_FLAG_OFFLINE_INSTALLATION: 'true'
+      FEATURE_FLAG_OIDC_CIDAAS: 'false'
+      FEATURE_FLAG_ORG_QUOTAS: 'false'
+      FEATURE_FLAG_OTX_VERSION_SELECTION: 'true'
+      FEATURE_FLAG_REQ_ACCESS: 'false'
+      FEATURE_FLAG_RETAIN_TRAINING_ARTIFACTS: 'false'
+      FEATURE_FLAG_SAAS_REQUIRE_INVITATION_LINK: 'true'
+      FEATURE_FLAG_STORAGE_SIZE_COMPUTATION: 'true'
+      FEATURE_FLAG_SUPPORT_CORS: 'false'
+      FEATURE_FLAG_TELEMETRY_STACK: 'false'
+      FEATURE_FLAG_USER_ONBOARDING: 'false'
+      FEATURE_FLAG_VISUAL_PROMPT_SERVICE: 'true'
+      FEATURE_FLAG_WORKSPACE_ACTIONS: 'true'
+
+
+auth_proxy:
+  enabled: true
+
+tls:
+  key_file: ""
+  cert_file: ""
+
+
+istio_gateway_name: "istio-gateway"
+istio_ingress_namespace: "istio-system"
+
+16:19:25,442 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:19:25,442 platform_utils.helm INFO Pulling chart 'istio-gateway', version '2.13.1-de29b7ba', to '/tmp/impp-install/istio'
+Pulled: localhost:5000/open-edge-platform/geti/helm/istio-gateway:2.13.1-de29b7ba
+Digest: sha256:20bf77413190f49121fcdf4edad9e6f2b7508bfb00c255083cf2cf9efed5ba6c
+16:19:25,476 platform_utils.helm INFO Installing chart 'istio-gateway' from '/tmp/impp-install/istio/istio-gateway'.
+16:19:25,476 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i istio-gateway --namespace=istio-system /tmp/impp-install/istio/istio-gateway --history-max=8 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --values=/tmp/impp-install/istio-gateway-values.yaml
+Release "istio-gateway" does not exist. Installing it now.
+W0809 16:19:25.784842  226550 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:19:25.789726  226550 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:19:25.789948  226550 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:19:25.792635  226550 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:19:25.796018  226550 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:19:25.797022  226550 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:19:25.797434  226550 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:19:25.797841  226550 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:19:25.798285  226550 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+NAME: istio-gateway
+LAST DEPLOYED: Sun Aug  9 16:19:25 2026
+NAMESPACE: istio-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+"istio-gateway" successfully installed!
+
+To learn more about the release, try:
+  $ helm status istio-gateway
+  $ helm get all istio-gateway
+
+Next steps:
+  * Deploy an HTTP Gateway: https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/
+  * Deploy an HTTPS Gateway: https://istio.io/latest/docs/tasks/traffic-management/ingress/secure-ingress/
+16:19:43,842 platform_utils.helm INFO Generating Jinja template.
+16:19:43,844 platform_utils.helm DEBUG Template: ---
+#  INTEL CONFIDENTIAL
+#
+#  Copyright (C) 2023 Intel Corporation
+#
+#  This software and the related documents are Intel copyrighted materials, and your use of them is governed by
+#  the express license under which they were provided to you ("License"). Unless the License provides otherwise,
+#  you may not use, modify, copy, publish, distribute, disclose or transmit this software or the related documents
+#  without Intel's prior written permission.
+#
+#  This software and the related documents are provided as is, with no express or implied warranties,
+#  other than those that are expressly stated in the License.
+
+global:
+  registry_address: localhost:5000
+  docker_namespace: open-edge-platform/geti
+  tag: 2.13.1-de29b7ba
+
+
+
+opa_config:
+  oci:
+    name: impt-internal-registry
+    url: "http://:5000"
+  bundles:
+    oci:
+      resource: "/open-edge-platform/geti/opa-bundle"
+16:19:43,844 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:19:43,844 platform_utils.helm INFO Pulling chart 'opa', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/opa:2.13.1-de29b7ba
+Digest: sha256:08628eeaf913c809513d2ca543194091e6675f0958fd8400cd6dfd3a4d2dd2b3
+16:19:43,878 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:19:43,878 platform_utils.k8s INFO Check if ip is properly assigned.
+16:19:43,882 platform_utils.k8s DEBUG Is endpoint ready: True
+16:19:43,882 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:19:43,882 platform_utils.k8s INFO Check if ip is properly assigned.
+16:19:43,884 platform_utils.k8s DEBUG Is endpoint ready: True
+16:19:43,884 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:19:43,884 platform_utils.k8s INFO Check if ip is properly assigned.
+16:19:43,885 platform_utils.helm INFO Installing chart 'opa' from '/tmp/impp-install/opa'.
+16:19:43,885 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i opa --namespace=opa-istio /tmp/impp-install/opa --history-max=3 --wait=true --timeout=30m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --values=/tmp/impp-install/opa-values.yaml
+Release "opa" does not exist. Installing it now.
+W0809 16:19:44.053453  227277 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+NAME: opa
+LAST DEPLOYED: Sun Aug  9 16:19:43 2026
+NAMESPACE: opa-istio
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:20:00,76 platform_utils.helm INFO Generating Jinja template.
+16:20:00,77 platform_utils.helm DEBUG Template: global:
+  registry_address: localhost:5000
+  docker_namespace: open-edge-platform/geti
+  enable_local_image_pull_secret: true
+  istio_ambient_mesh: False
+
+  istio_gateway_name: "istio-gateway"
+  istio_ingress_namespace: "istio-system"
+
+  security_headers: |
+    X-Frame-Options: "DENY"
+    Content-Security-Policy: "frame-ancestors 'none'; default-src 'self'; connect-src 'self' data: https://consumerdev.intel.com/ https://login.microsoftonline.com/; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval' blob:; img-src 'self' data:; frame-src 'none'; object-src 'none'; form-action 'self'; worker-src 'self' blob:"
+    cross-origin-embedder-policy: require-corp
+    cross-origin-opener-policy: same-origin
+    X-Content-Type-Options: "nosniff"
+  stripped_headers: |
+    - "X-Envoy-Decorator-Operation"
+  weights_url: "https://storage.geti.intel.com/weights"
+  proxy:
+    enabled: True
+    http_proxy: "http://proxy-dmz.intel.com:911"
+    https_proxy: "http://proxy-dmz.intel.com:912"
+    no_proxy: "host.docker.internal,intel.com,.intel.com,10.0.0.0/8,192.168.0.0/16,localhost,.local,127.0.0.0/8,172.16.0.0/12,134.134.0.0/16"
+
+16:20:00,77 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:20:00,78 platform_utils.helm INFO Pulling chart 'seaweed-fs', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/seaweed-fs:2.13.1-de29b7ba
+Digest: sha256:3dc2ff55efaebf0c2b87fcfbd4945dbcf0b4520feb428e92a6b0fa1bcd47e2b4
+16:20:00,109 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:20:00,109 platform_utils.k8s INFO Check if ip is properly assigned.
+16:20:00,113 platform_utils.k8s DEBUG Is endpoint ready: True
+16:20:00,114 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:20:00,114 platform_utils.k8s INFO Check if ip is properly assigned.
+16:20:00,115 platform_utils.k8s DEBUG Is endpoint ready: True
+16:20:00,115 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:20:00,115 platform_utils.k8s INFO Check if ip is properly assigned.
+16:20:00,117 platform_utils.k8s DEBUG Is endpoint ready: True
+16:20:00,117 platform_utils.helm INFO Installing chart 'seaweed-fs' from '/tmp/impp-install/seaweed-fs'.
+16:20:00,117 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i seaweed-fs --namespace=impt /tmp/impp-install/seaweed-fs --history-max=3 --wait=true --timeout=60m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --version=2.13.1-de29b7ba --values=/tmp/impp-install/seaweed-fs-values.yaml
+Release "seaweed-fs" does not exist. Installing it now.
+W0809 16:20:00.439938  227897 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+NAME: seaweed-fs
+LAST DEPLOYED: Sun Aug  9 16:20:00 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:21:41,686 platform_stages.steps.deploy_seaweed_fs INFO Successfully set TTL for bucket 'codedeployments'
+16:21:41,902 platform_stages.steps.deploy_seaweed_fs INFO Successfully set TTL for bucket 'resultmedia'
+16:21:42,67 platform_stages.steps.deploy_seaweed_fs INFO Successfully set TTL for bucket 'temporaryfiles'
+16:21:42,310 platform_stages.steps.deploy_seaweed_fs INFO Successfully set TTL for bucket 'tensors'
+16:21:42,439 platform_stages.steps.deploy_seaweed_fs INFO Successfully set TTL for bucket 'mlflowexperiments'
+16:21:42,441 platform_utils.helm INFO Generating Jinja template.
+16:21:42,447 platform_utils.helm DEBUG Template: ---
+#  INTEL CONFIDENTIAL
+#
+#  Copyright (C) 2023 Intel Corporation
+#
+#  This software and the related documents are Intel copyrighted materials, and your use of them is governed by
+#  the express license under which they were provided to you ("License"). Unless the License provides otherwise,
+#  you may not use, modify, copy, publish, distribute, disclose or transmit this software or the related documents
+#  without Intel's prior written permission.
+#
+#  This software and the related documents are provided as is, with no express or implied warranties,
+#  other than those that are expressly stated in the License.
+
+enabled:
+  dcgm-exporter: True
+  lgtm-stack: False
+  xpu-manager: False
+
+
+
+configuration:
+  serverAddress: 10.255.255.254
+  data_folder: /data
+  platformVersion: 2.13.1
+  buildVersion: 2.13.1-de29b7ba
+  intelEmail: Geti.Team@intel.com
+  feature_flags_data:
+      FEATURE_FLAG_ACC_SVC_MOD: 'false'
+      FEATURE_FLAG_ALLOW_EXTERNAL_KEY_PROJECT_IMPORT: 'true'
+      FEATURE_FLAG_AMBIENT_MESH: 'false'
+      FEATURE_FLAG_ANALYTICS_WORKFLOW_ID: 'true'
+      FEATURE_FLAG_ANNOTATION_HOLE: 'true'
+      FEATURE_FLAG_ANOMALY_REDUCTION: 'true'
+      FEATURE_FLAG_ASYNCHRONOUS_MEDIA_PREPROCESSING: 'true'
+      FEATURE_FLAG_CAMERA_VIDEO_UPLOAD: 'false'
+      FEATURE_FLAG_CLASSIFICATION_RANGES: 'true'
+      FEATURE_FLAG_CREDIT_SYSTEM: 'false'
+      FEATURE_FLAG_DECORD_VIDEO_DECODER: 'false'
+      FEATURE_FLAG_FP16_INFERENCE: 'true'
+      FEATURE_FLAG_KEYPOINT_DETECTION: 'true'
+      FEATURE_FLAG_KEYPOINT_DETECTION_DATASET_IE: 'true'
+      FEATURE_FLAG_LABELS_REORDERING: 'true'
+      FEATURE_FLAG_MAINTENANCE_BANNER: 'false'
+      FEATURE_FLAG_MANAGE_USERS: 'false'
+      FEATURE_FLAG_MANAGE_USERS_ROLES: 'true'
+      FEATURE_FLAG_MIGRATE_VFR_TO_CFR_VIDEOS: 'false'
+      FEATURE_FLAG_OBJECT_STORAGE_OP: 'true'
+      FEATURE_FLAG_OFFLINE_INSTALLATION: 'true'
+      FEATURE_FLAG_OIDC_CIDAAS: 'false'
+      FEATURE_FLAG_ORG_QUOTAS: 'false'
+      FEATURE_FLAG_OTX_VERSION_SELECTION: 'true'
+      FEATURE_FLAG_REQ_ACCESS: 'false'
+      FEATURE_FLAG_RETAIN_TRAINING_ARTIFACTS: 'false'
+      FEATURE_FLAG_SAAS_REQUIRE_INVITATION_LINK: 'true'
+      FEATURE_FLAG_STORAGE_SIZE_COMPUTATION: 'true'
+      FEATURE_FLAG_SUPPORT_CORS: 'false'
+      FEATURE_FLAG_TELEMETRY_STACK: 'false'
+      FEATURE_FLAG_USER_ONBOARDING: 'false'
+      FEATURE_FLAG_VISUAL_PROMPT_SERVICE: 'true'
+      FEATURE_FLAG_WORKSPACE_ACTIONS: 'true'
+
+  render_gid: 0
+  accelerator:
+
+    type: gpu
+    name: nvidia.com/gpu
+
+
+global:
+  install_telemetry_stack: False
+  data_folder: /data
+  manage_users: false
+  serverAddress: 10.255.255.254
+  registry_address: localhost:5000
+  docker_namespace: open-edge-platform/geti
+  tag: 2.13.1-de29b7ba
+  mlflow_sidecar_image: "localhost:5000/open-edge-platform/geti/mlflow-geti-store:2.13.1-de29b7ba"
+  otx2_image: "localhost:5000/open-edge-platform/geti/otx2-training:2.13.1-de29b7ba"
+  security_headers: |
+    X-Frame-Options: "DENY"
+    Content-Security-Policy: "frame-ancestors 'none'; default-src 'self'; media-src 'self' https://docs.geti.intel.com/on-prem/2.6/; connect-src 'self' data: https://consumerdev.intel.com/ https://login.microsoftonline.com/; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval' blob:; img-src 'self' data:; frame-src 'none'; object-src 'none'; form-action 'self'; worker-src 'self' blob:"
+    cross-origin-embedder-policy: require-corp
+    cross-origin-opener-policy: same-origin
+    X-Content-Type-Options: "nosniff"
+  stripped_headers: |
+    - "X-Envoy-Decorator-Operation"
+  istio_ambient_mesh: False
+
+  istio_gateway_name: "istio-gateway"
+  istio_ingress_namespace: "istio-system"
+
+  grafana_enabled: False
+  grafana_tmp_sub_path: grafana_tmp
+  dcgm_dashboard: True
+  xpum_dashboard: False
+  logging_config_dir: "/mnt/logging_config"
+  logs_dir: "/mnt/logs"
+  ldap_service_user_secret_name: "impt-ldap-service-user"
+  min_free_disk_space_gib: 5
+  running_on_vm: False
+  workflow_versions: 2.13.1-de29b7ba
+  proxy_enabled: True
+  http_proxy: "http://proxy-dmz.intel.com:911"
+  https_proxy: "http://proxy-dmz.intel.com:912"
+  no_proxy: "host.docker.internal,intel.com,.intel.com,10.0.0.0/8,192.168.0.0/16,localhost,.local,127.0.0.0/8,172.16.0.0/12,134.134.0.0/16,127.0.0.1,localhost,.impt,.svc,.cluster.local"
+  forceNamespace:
+    flyte: flyte
+  telemetry_retention_geti: 30
+  telemetry_retention_k8s: 10
+  enable_mongodb_credentials: true
+  oidc_cidaas : false
+  credit_system_enabled: false
+  seaweed_fs_enabled: true
+  
+  s3_endpoint: impt-seaweed-fs.impt:8333
+  cors_policy:
+    enabled: true
+    allowed_origins:
+      - exact: "https://docs.geti.intel.com"
+
+    allowed_headers:
+      - Authorization
+      - Content-Type
+      - tus-resumable
+      - upload-length
+      - upload-length
+      - x-geti-csrf-protection
+      - cookie
+      - x-api-key
+    allowed_methods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+    max_age: 86400s
+    allow_credentials: true
+
+
+
+gateway:
+  dex_name: "impt-dex"
+  configuration_cm_name: "impt-configuration"
+
+opentelemetry-collector:
+  config:
+    receivers:
+      k8s_events:
+        namespaces:
+        - "impt"
+        - "opa-istio"
+        - "istio-system"
+  
+
+oidc-stack:
+  openldap:
+    
+    config:
+      impt_ldif: |-
+
+        # Group definitions.
+        dn: ou=Groups,dc=example,dc=org
+        objectClass: organizationalUnit
+        ou: Groups
+
+        dn: cn=Admins,ou=Groups,dc=example,dc=org
+        cn: Admins
+        gidnumber: 500
+        objectclass: posixGroup
+        objectclass: top
+
+        dn: cn=Users,ou=Groups,dc=example,dc=org
+        cn: Users
+        gidnumber: 501
+        objectclass: posixGroup
+        objectclass: top
+
+        dn: cn=ServiceAccounts,ou=Groups,dc=example,dc=org
+        cn: ServiceAccounts
+        gidnumber: 502
+        objectclass: posixGroup
+        objectclass: top
+  dex:
+    
+    isSMTPDefined: False
+
+
+
+
+
+secrets:
+  smtp:
+    smtp_enabled: False
+    smtp_login: ""
+    smtp_password: ""
+    smtp_host: ""
+    smtp_port: "0"
+    from_mail: "None"
+    from_name: "None"
+
+
+flyte-core:
+  
+  forceNamespace: flyte
+  flyteadmin:
+    
+    initialProjects:
+      - impt-jobs
+  
+  storage:
+    s3:
+      endpoint: http://impt-seaweed-fs.impt:8333
+
+jobs-execution-namespace:
+  dataStoragePath: /data
+  feature_flags_data:
+      FEATURE_FLAG_ACC_SVC_MOD: 'false'
+      FEATURE_FLAG_ALLOW_EXTERNAL_KEY_PROJECT_IMPORT: 'true'
+      FEATURE_FLAG_AMBIENT_MESH: 'false'
+      FEATURE_FLAG_ANALYTICS_WORKFLOW_ID: 'true'
+      FEATURE_FLAG_ANNOTATION_HOLE: 'true'
+      FEATURE_FLAG_ANOMALY_REDUCTION: 'true'
+      FEATURE_FLAG_ASYNCHRONOUS_MEDIA_PREPROCESSING: 'true'
+      FEATURE_FLAG_CAMERA_VIDEO_UPLOAD: 'false'
+      FEATURE_FLAG_CLASSIFICATION_RANGES: 'true'
+      FEATURE_FLAG_CREDIT_SYSTEM: 'false'
+      FEATURE_FLAG_DECORD_VIDEO_DECODER: 'false'
+      FEATURE_FLAG_FP16_INFERENCE: 'true'
+      FEATURE_FLAG_KEYPOINT_DETECTION: 'true'
+      FEATURE_FLAG_KEYPOINT_DETECTION_DATASET_IE: 'true'
+      FEATURE_FLAG_LABELS_REORDERING: 'true'
+      FEATURE_FLAG_MAINTENANCE_BANNER: 'false'
+      FEATURE_FLAG_MANAGE_USERS: 'false'
+      FEATURE_FLAG_MANAGE_USERS_ROLES: 'true'
+      FEATURE_FLAG_MIGRATE_VFR_TO_CFR_VIDEOS: 'false'
+      FEATURE_FLAG_OBJECT_STORAGE_OP: 'true'
+      FEATURE_FLAG_OFFLINE_INSTALLATION: 'true'
+      FEATURE_FLAG_OIDC_CIDAAS: 'false'
+      FEATURE_FLAG_ORG_QUOTAS: 'false'
+      FEATURE_FLAG_OTX_VERSION_SELECTION: 'true'
+      FEATURE_FLAG_REQ_ACCESS: 'false'
+      FEATURE_FLAG_RETAIN_TRAINING_ARTIFACTS: 'false'
+      FEATURE_FLAG_SAAS_REQUIRE_INVITATION_LINK: 'true'
+      FEATURE_FLAG_STORAGE_SIZE_COMPUTATION: 'true'
+      FEATURE_FLAG_SUPPORT_CORS: 'false'
+      FEATURE_FLAG_TELEMETRY_STACK: 'false'
+      FEATURE_FLAG_USER_ONBOARDING: 'false'
+      FEATURE_FLAG_VISUAL_PROMPT_SERVICE: 'true'
+      FEATURE_FLAG_WORKSPACE_ACTIONS: 'true'
+
+
+modelmesh-serving:
+  
+  s3_endpoint_url: "http://impt-seaweed-fs.impt.svc.cluster.local:8333"
+
+
+16:21:42,447 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:21:42,448 platform_utils.helm INFO Pulling chart 'impt', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/impt:2.13.1-de29b7ba
+Digest: sha256:bc340626f729c9c754f2f08224972d22f9a997714bba7c2e68e8ba18a9c0f879
+16:21:42,500 platform_stages.steps.deploy_platform INFO Calculate multiplier based on resources from node.
+16:21:42,500 platform_utils.k8s INFO Get list of nodes based on label node-role.kubernetes.io/control-plane.
+16:21:42,506 platform_stages.steps.deploy_platform INFO Multiplier calculated from allocatable resources.
+16:21:42,507 platform_stages.steps.deploy_platform INFO Scale chart resources.
+16:21:42,507 platform_utils.scale_helm_chart_resources DEBUG Starting resource scaling
+16:21:42,507 platform_utils.scale_helm_chart_resources DEBUG Searching for yaml files using specified path: /tmp/impp-install/**/values.yaml
+16:21:42,508 platform_utils.scale_helm_chart_resources DEBUG Found 52 values.yaml files, corresponding to ['/tmp/impp-install/impt/values.yaml', '/tmp/impp-install/impt/charts/dcgm-exporter/values.yaml', '/tmp/impp-install/impt/charts/modelregistration/values.yaml', '/tmp/impp-install/impt/charts/kafka-proxy/values.yaml', '/tmp/impp-install/impt/charts/etcd/values.yaml', '/tmp/impp-install/impt/charts/telemetry-compression/values.yaml', '/tmp/impp-install/impt/charts/secrets/values.yaml', '/tmp/impp-install/impt/charts/web/values.yaml', '/tmp/impp-install/impt/charts/oidc-stack/values.yaml', '/tmp/impp-install/impt/charts/oidc-stack/charts/openldap/values.yaml', '/tmp/impp-install/impt/charts/oidc-stack/charts/dex/values.yaml', '/tmp/impp-install/impt/charts/visual-prompt/values.yaml', '/tmp/impp-install/impt/charts/media-ms/values.yaml', '/tmp/impp-install/impt/charts/mongodb/values.yaml', '/tmp/impp-install/impt/charts/jobs-execution-namespace/values.yaml', '/tmp/impp-install/impt/charts/configuration/values.yaml', '/tmp/impp-install/impt/charts/xpu-manager/values.yaml', '/tmp/impp-install/impt/charts/modelmesh-serving/values.yaml', '/tmp/impp-install/impt/charts/opa-bundle/values.yaml', '/tmp/impp-install/impt/charts/kafka/values.yaml', '/tmp/impp-install/impt/charts/project-ie/values.yaml', '/tmp/impp-install/impt/charts/inference-gateway/values.yaml', '/tmp/impp-install/impt/charts/flyte-core/values.yaml', '/tmp/impp-install/impt/charts/lgtm-stack/values.yaml', '/tmp/impp-install/impt/charts/lgtm-stack/charts/loki/values.yaml', '/tmp/impp-install/impt/charts/lgtm-stack/charts/mimir/values.yaml', '/tmp/impp-install/impt/charts/lgtm-stack/charts/tempo/values.yaml', '/tmp/impp-install/impt/charts/lgtm-stack/charts/grafana/values.yaml', '/tmp/impp-install/impt/charts/platform-cleaner/values.yaml', '/tmp/impp-install/impt/charts/opentelemetry-collector/values.yaml', '/tmp/impp-install/impt/charts/kafka-provisioning/values.yaml', '/tmp/impp-install/impt/charts/dataset-ie/values.yaml', '/tmp/impp-install/impt/charts/postgresql/values.yaml', '/tmp/impp-install/impt/charts/jobs/values.yaml', '/tmp/impp-install/impt/charts/resource/values.yaml', '/tmp/impp-install/impt/charts/spice-db/values.yaml', '/tmp/impp-install/impt/charts/auto-train-controller/values.yaml', '/tmp/impp-install/impt/charts/director/values.yaml', '/tmp/impp-install/istio/istio-base/values.yaml', '/tmp/impp-install/istio/istio-istiod/values.yaml', '/tmp/impp-install/istio/istio-gateway/values.yaml', '/tmp/impp-install/pv-creation/values.yaml', '/tmp/impp-install/reloader/values.yaml', '/tmp/impp-install/cert-manager-istio-csr/values.yaml', '/tmp/impp-install/crds/charts/cert-manager-crds/values.yaml', '/tmp/impp-install/crds/charts/flyte-crds/values.yaml', '/tmp/impp-install/crds/charts/modelmesh-serving-crds/values.yaml', '/tmp/impp-install/crds/charts/istio-crds/values.yaml', '/tmp/impp-install/seaweed-fs/values.yaml', '/tmp/impp-install/cert-manager/values.yaml', '/tmp/impp-install/opa/values.yaml', '/tmp/impp-install/kubelet-csr-approver/values.yaml']
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Handling impt resources
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Handling dcgm-exporter resources
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for dcgm-exporter/resources from 100m to 100m
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under dcgm-exporter.resources.requests.cpu path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for dcgm-exporter/resources from 512Mi to 358Mi
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 358Mi under dcgm-exporter.resources.requests.memory path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for dcgm-exporter/resources from 512Mi to 358Mi
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 358Mi under dcgm-exporter.resources.limits.memory path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Handling modelregistration resources
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for modelregistration/resources from 250m to 175m
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 175m under modelregistration.resources.requests.cpu path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for modelregistration/resources from 256Mi to 179Mi
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 179Mi under modelregistration.resources.requests.memory path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for modelregistration/resources from 4Gi to 2867Mi
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 2867Mi under modelregistration.resources.limits.memory path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Handling kafka-proxy resources
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Handling etcd resources
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for etcd/resources from 100m to 100m
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under etcd.resources.requests.cpu path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for etcd/resources from 400Mi to 280Mi
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 280Mi under etcd.resources.requests.memory path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for etcd/resources from 400Mi to 280Mi
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 280Mi under etcd.resources.limits.memory path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Handling telemetry-compression resources
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for telemetry-compression/resources from 50m to 50m
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 50m under telemetry-compression.resources.requests.cpu path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU limits for telemetry-compression/resources from 100m to 100m
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under telemetry-compression.resources.limits.cpu path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for telemetry-compression/resources from 100Mi to 100Mi
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under telemetry-compression.resources.requests.memory path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for telemetry-compression/resources from 500Mi to 350Mi
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under telemetry-compression.resources.limits.memory path
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for telemetry-compression/init.resources from 50m to 50m
+16:21:42,767 platform_utils.scale_helm_chart_resources DEBUG Saving 50m under telemetry-compression.init.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for telemetry-compression/init.resources from 100Mi to 100Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under telemetry-compression.init.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for telemetry-compression/init.resources from 100Mi to 100Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under telemetry-compression.init.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling secrets resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling web resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling oidc-stack resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for oidc-stack/openldap.resources from 100m to 100m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under oidc-stack.openldap.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for oidc-stack/openldap.resources from 100Mi to 100Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under oidc-stack.openldap.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for oidc-stack/openldap.resources from 300Mi to 210Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 210Mi under oidc-stack.openldap.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for oidc-stack/dex.resources from 100m to 100m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under oidc-stack.dex.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for oidc-stack/dex.resources from 256Mi to 179Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 179Mi under oidc-stack.dex.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for oidc-stack/dex.resources from 256Mi to 179Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 179Mi under oidc-stack.dex.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling openldap resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for openldap/resources from 100m to 100m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under openldap.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for openldap/resources from 100Mi to 100Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under openldap.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for openldap/resources from 100Mi to 100Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under openldap.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling dex resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling visual-prompt resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for visual-prompt/resources from 300m to 210m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 210m under visual-prompt.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for visual-prompt/resources from 1Gi to 716Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under visual-prompt.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for visual-prompt/resources from 2Gi to 1433Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 1433Mi under visual-prompt.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling media-ms resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for media-ms/resources from 300m to 210m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 210m under media-ms.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for media-ms/resources from 500Mi to 350Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under media-ms.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for media-ms/resources from 1Gi to 716Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under media-ms.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling mongodb resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for mongodb/resources from 400m to 280m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 280m under mongodb.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for mongodb/resources from 1Gi to 716Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under mongodb.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for mongodb/resources from 2Gi to 1433Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 1433Mi under mongodb.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling jobs-execution-namespace resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling configuration resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling xpu-manager resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling modelmesh-serving resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for modelmesh-serving/ovmsRuntimeResources.resources from 300m to 210m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 210m under modelmesh-serving.ovmsRuntimeResources.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for modelmesh-serving/ovmsRuntimeResources.resources from 2Gi to 1433Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 1433Mi under modelmesh-serving.ovmsRuntimeResources.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for modelmesh-serving/ovmsRuntimeResources.resources from 8Gi to 5734Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 5734Mi under modelmesh-serving.ovmsRuntimeResources.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling kafka resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling project-ie resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for project-ie/resources from 200m to 140m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 140m under project-ie.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for project-ie/resources from 400Mi to 280Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 280Mi under project-ie.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for project-ie/resources from 800Mi to 560Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 560Mi under project-ie.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling inference-gateway resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for inference-gateway/resources from 300m to 210m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 210m under inference-gateway.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for inference-gateway/resources from 300Mi to 210Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 210Mi under inference-gateway.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for inference-gateway/resources from 1Gi to 716Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under inference-gateway.resources.limits.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Handling flyte-core resources
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for flyte-core/jobs.resources from 100m to 100m
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under flyte-core.jobs.resources.requests.cpu path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for flyte-core/jobs.resources from 512Mi to 358Mi
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Saving 358Mi under flyte-core.jobs.resources.requests.memory path
+16:21:42,768 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for flyte-core/jobs.resources from 2Gi to 1433Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 1433Mi under flyte-core.jobs.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for flyte-core/flyteadmin.resources from 10m to 10m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 10m under flyte-core.flyteadmin.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for flyte-core/flyteadmin.resources from 50Mi to 50Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 50Mi under flyte-core.flyteadmin.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for flyte-core/flyteadmin.resources from 500Mi to 350Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under flyte-core.flyteadmin.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for flyte-core/flytescheduler.resources from 10m to 10m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 10m under flyte-core.flytescheduler.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for flyte-core/flytescheduler.resources from 50Mi to 50Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 50Mi under flyte-core.flytescheduler.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for flyte-core/flytescheduler.resources from 500Mi to 350Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under flyte-core.flytescheduler.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for flyte-core/datacatalog.resources from 10m to 10m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 10m under flyte-core.datacatalog.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for flyte-core/datacatalog.resources from 50Mi to 50Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 50Mi under flyte-core.datacatalog.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for flyte-core/datacatalog.resources from 500Mi to 350Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under flyte-core.datacatalog.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for flyte-core/flytepropeller.resources from 10m to 10m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 10m under flyte-core.flytepropeller.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for flyte-core/flytepropeller.resources from 100Mi to 100Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under flyte-core.flytepropeller.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for flyte-core/flytepropeller.resources from 200Mi to 140Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 140Mi under flyte-core.flytepropeller.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for flyte-core/flyteconsole.resources from 10m to 10m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 10m under flyte-core.flyteconsole.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for flyte-core/flyteconsole.resources from 50Mi to 50Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 50Mi under flyte-core.flyteconsole.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for flyte-core/flyteconsole.resources from 250Mi to 175Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 175Mi under flyte-core.flyteconsole.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Handling lgtm-stack resources
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Handling loki resources
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for loki/write.resources from 512Mi to 358Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 358Mi under loki.write.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for loki/read.resources from 512Mi to 358Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 358Mi under loki.read.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for loki/singleBinary.resources from 512Mi to 358Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 358Mi under loki.singleBinary.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for loki/minio.resources from 100m to 100m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under loki.minio.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for loki/minio.resources from 128Mi to 128Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 128Mi under loki.minio.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Handling mimir resources
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for mimir/init.resources from 50m to 50m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 50m under mimir.init.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for mimir/init.resources from 100Mi to 100Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under mimir.init.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for mimir/init.resources from 100Mi to 100Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under mimir.init.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for mimir/mimir.resources from 100m to 100m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under mimir.mimir.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for mimir/mimir.resources from 256Mi to 179Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 179Mi under mimir.mimir.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for mimir/mimir.resources from 4Gi to 2867Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 2867Mi under mimir.mimir.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Handling tempo resources
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for tempo/init.resources from 50m to 50m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 50m under tempo.init.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for tempo/init.resources from 100Mi to 100Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under tempo.init.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for tempo/init.resources from 100Mi to 100Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under tempo.init.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for tempo/tempo.resources from 100m to 100m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under tempo.tempo.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for tempo/tempo.resources from 256Mi to 179Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 179Mi under tempo.tempo.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for tempo/tempo.resources from 4Gi to 2867Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 2867Mi under tempo.tempo.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Handling grafana resources
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Handling platform-cleaner resources
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for platform-cleaner/init.resources from 50m to 50m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 50m under platform-cleaner.init.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for platform-cleaner/init.resources from 100Mi to 100Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under platform-cleaner.init.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for platform-cleaner/init.resources from 100Mi to 100Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under platform-cleaner.init.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for platform-cleaner/resources from 50m to 50m
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 50m under platform-cleaner.resources.requests.cpu path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for platform-cleaner/resources from 100Mi to 100Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 100Mi under platform-cleaner.resources.requests.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for platform-cleaner/resources from 1Gi to 716Mi
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under platform-cleaner.resources.limits.memory path
+16:21:42,769 platform_utils.scale_helm_chart_resources DEBUG Handling opentelemetry-collector resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for opentelemetry-collector/resources from 256m to 179m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 179m under opentelemetry-collector.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for opentelemetry-collector/resources from 1Gi to 716Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under opentelemetry-collector.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for opentelemetry-collector/resources from 1Gi to 716Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under opentelemetry-collector.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling kafka-provisioning resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling dataset-ie resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for dataset-ie/resources from 200m to 140m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 140m under dataset-ie.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for dataset-ie/resources from 400Mi to 280Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 280Mi under dataset-ie.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for dataset-ie/resources from 800Mi to 560Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 560Mi under dataset-ie.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling postgresql resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for postgresql/resources from 250m to 175m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 175m under postgresql.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for postgresql/resources from 512Mi to 358Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 358Mi under postgresql.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for postgresql/resources from 2Gi to 1433Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 1433Mi under postgresql.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling jobs resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for jobs/microservice.resources from 400m to 280m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 280m under jobs.microservice.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for jobs/microservice.resources from 300Mi to 210Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 210Mi under jobs.microservice.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for jobs/microservice.resources from 500Mi to 350Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under jobs.microservice.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for jobs/scheduler.resources from 300m to 210m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 210m under jobs.scheduler.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for jobs/scheduler.resources from 200Mi to 140Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 140Mi under jobs.scheduler.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for jobs/scheduler.resources from 500Mi to 350Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under jobs.scheduler.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for jobs/scheduling_policy.resources from 300m to 210m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 210m under jobs.scheduling_policy.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for jobs/scheduling_policy.resources from 200Mi to 140Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 140Mi under jobs.scheduling_policy.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for jobs/scheduling_policy.resources from 500Mi to 350Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under jobs.scheduling_policy.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling resource resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for resource/resources from 1.5 to 1050m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 1050m under resource.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for resource/resources from 1Gi to 716Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under resource.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for resource/resources from 3Gi to 2150Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 2150Mi under resource.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling spice-db resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for spice-db/resources from 200m to 140m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 140m under spice-db.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for spice-db/resources from 500Mi to 350Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under spice-db.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for spice-db/resources from 1Gi to 716Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under spice-db.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling auto-train-controller resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for auto-train-controller/resources from 10m to 10m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 10m under auto-train-controller.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for auto-train-controller/resources from 200Mi to 140Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 140Mi under auto-train-controller.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for auto-train-controller/resources from 200Mi to 140Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 140Mi under auto-train-controller.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling director resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for director/resources from 300m to 210m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 210m under director.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for director/resources from 500Mi to 350Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 350Mi under director.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for director/resources from 1Gi to 716Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under director.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling istio-base resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Handling istio-istiod resources
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for istio-istiod/_internal_defaults_do_not_set.resources from 400m to 280m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 280m under istio-istiod._internal_defaults_do_not_set.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU limits for istio-istiod/_internal_defaults_do_not_set.resources from 400m to 280m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 280m under istio-istiod._internal_defaults_do_not_set.resources.limits.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for istio-istiod/_internal_defaults_do_not_set.resources from 400Mi to 280Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 280Mi under istio-istiod._internal_defaults_do_not_set.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for istio-istiod/_internal_defaults_do_not_set.resources from 1024Mi to 716Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under istio-istiod._internal_defaults_do_not_set.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for istio-istiod/_internal_defaults_do_not_set.global.proxy.resources from 35m to 35m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 35m under istio-istiod._internal_defaults_do_not_set.global.proxy.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for istio-istiod/_internal_defaults_do_not_set.global.proxy.resources from 40Mi to 40Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 40Mi under istio-istiod._internal_defaults_do_not_set.global.proxy.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for istio-istiod/_internal_defaults_do_not_set.global.proxy.resources from 512Mi to 358Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 358Mi under istio-istiod._internal_defaults_do_not_set.global.proxy.resources.limits.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for istio-istiod/_internal_defaults_do_not_set.global.waypoint.resources from 100m to 100m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under istio-istiod._internal_defaults_do_not_set.global.waypoint.resources.requests.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU limits for istio-istiod/_internal_defaults_do_not_set.global.waypoint.resources from 2 to 1400m
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 1400m under istio-istiod._internal_defaults_do_not_set.global.waypoint.resources.limits.cpu path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for istio-istiod/_internal_defaults_do_not_set.global.waypoint.resources from 128Mi to 128Mi
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Saving 128Mi under istio-istiod._internal_defaults_do_not_set.global.waypoint.resources.requests.memory path
+16:21:42,770 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for istio-istiod/_internal_defaults_do_not_set.global.waypoint.resources from 1Gi to 716Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under istio-istiod._internal_defaults_do_not_set.global.waypoint.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling istio-gateway resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for istio-gateway/_internal_defaults_do_not_set.resources from 100m to 100m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under istio-gateway._internal_defaults_do_not_set.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU limits for istio-gateway/_internal_defaults_do_not_set.resources from 2000m to 1400m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 1400m under istio-gateway._internal_defaults_do_not_set.resources.limits.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for istio-gateway/_internal_defaults_do_not_set.resources from 128Mi to 128Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 128Mi under istio-gateway._internal_defaults_do_not_set.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for istio-gateway/_internal_defaults_do_not_set.resources from 1024Mi to 716Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 716Mi under istio-gateway._internal_defaults_do_not_set.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling pv-creation resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling reloader resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for reloader/reloader.deployment.resources from 10m to 10m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 10m under reloader.reloader.deployment.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU limits for reloader/reloader.deployment.resources from 10m to 10m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 10m under reloader.reloader.deployment.resources.limits.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for reloader/reloader.deployment.resources from 128Mi to 128Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 128Mi under reloader.reloader.deployment.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for reloader/reloader.deployment.resources from 128Mi to 128Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 128Mi under reloader.reloader.deployment.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling cert-manager-istio-csr resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU limits for cert-manager-istio-csr/resources from 100m to 100m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under cert-manager-istio-csr.resources.limits.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for cert-manager-istio-csr/resources from 128Mi to 128Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 128Mi under cert-manager-istio-csr.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for cert-manager-istio-csr/resources from 128Mi to 128Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 128Mi under cert-manager-istio-csr.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling cert-manager-crds resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling flyte-crds resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling seaweed-fs resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for seaweed-fs/init.resources from 10m to 10m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 10m under seaweed-fs.init.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for seaweed-fs/init.resources from 10Mi to 10Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 10Mi under seaweed-fs.init.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for seaweed-fs/init.resources from 20Mi to 20Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 20Mi under seaweed-fs.init.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for seaweed-fs/resources from 100m to 100m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under seaweed-fs.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for seaweed-fs/resources from 400Mi to 280Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 280Mi under seaweed-fs.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for seaweed-fs/resources from 4Gi to 2867Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 2867Mi under seaweed-fs.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling cert-manager resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for cert-manager/resources from 100m to 100m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under cert-manager.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for cert-manager/resources from 64Mi to 64Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 64Mi under cert-manager.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for cert-manager/resources from 256Mi to 179Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 179Mi under cert-manager.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for cert-manager/webhook.resources from 100m to 100m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under cert-manager.webhook.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for cert-manager/webhook.resources from 64Mi to 64Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 64Mi under cert-manager.webhook.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for cert-manager/webhook.resources from 256Mi to 179Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 179Mi under cert-manager.webhook.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for cert-manager/cainjector.resources from 100m to 100m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under cert-manager.cainjector.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for cert-manager/cainjector.resources from 64Mi to 64Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 64Mi under cert-manager.cainjector.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for cert-manager/cainjector.resources from 256Mi to 179Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 179Mi under cert-manager.cainjector.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for cert-manager/startupapicheck.resources from 100m to 100m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under cert-manager.startupapicheck.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for cert-manager/startupapicheck.resources from 64Mi to 64Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 64Mi under cert-manager.startupapicheck.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for cert-manager/startupapicheck.resources from 256Mi to 179Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 179Mi under cert-manager.startupapicheck.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling opa resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for opa/resources from 250m to 175m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 175m under opa.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for opa/resources from 200Mi to 140Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 140Mi under opa.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for opa/resources from 1000Mi to 700Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 700Mi under opa.resources.limits.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Handling kubelet-csr-approver resources
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU requests for kubelet-csr-approver/resources from 100m to 100m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 100m under kubelet-csr-approver.resources.requests.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled CPU limits for kubelet-csr-approver/resources from 500m to 350m
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 350m under kubelet-csr-approver.resources.limits.cpu path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory requests for kubelet-csr-approver/resources from 64Mi to 64Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 64Mi under kubelet-csr-approver.resources.requests.memory path
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Scaled Memory limits for kubelet-csr-approver/resources from 128Mi to 128Mi
+16:21:42,771 platform_utils.scale_helm_chart_resources DEBUG Saving 128Mi under kubelet-csr-approver.resources.limits.memory path
+16:21:42,778 platform_stages.steps.deploy_platform INFO Chart resources generated successfully.
+16:21:42,778 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:21:42,778 platform_utils.k8s INFO Check if ip is properly assigned.
+16:21:42,783 platform_utils.k8s DEBUG Is endpoint ready: True
+16:21:42,783 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:21:42,783 platform_utils.k8s INFO Check if ip is properly assigned.
+16:21:42,785 platform_utils.k8s DEBUG Is endpoint ready: True
+16:21:42,785 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:21:42,785 platform_utils.k8s INFO Check if ip is properly assigned.
+16:21:42,787 platform_utils.k8s DEBUG Is endpoint ready: True
+16:21:42,787 platform_utils.helm INFO Installing chart 'impt' from '/tmp/impp-install/impt'.
+16:21:42,787 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i impt --namespace=impt /tmp/impp-install/impt --history-max=3 --wait=true --timeout=60m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --values=/tmp/impp-install/impt-values.yaml --values=/tmp/impp-install/impt-resource-values.yaml
+Release "impt" does not exist. Installing it now.
+W0809 16:21:46.927270  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.927273  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.927841  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.928724  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.930237  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.930543  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.933579  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.933681  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.933669  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.934326  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:21:46.934477  230794 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+NAME: impt
+LAST DEPLOYED: Sun Aug  9 16:21:42 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+16:50:19,962 platform_utils.helm INFO Generating Jinja template.
+16:50:19,965 platform_utils.helm DEBUG Template: ---
+#  INTEL CONFIDENTIAL
+#
+#  Copyright (C) 2024 Intel Corporation
+#
+#  This software and the related documents are Intel copyrighted materials, and your use of them is governed by
+#  the express license under which they were provided to you ("License"). Unless the License provides otherwise,
+#  you may not use, modify, copy, publish, distribute, disclose or transmit this software or the related documents
+#  without Intel's prior written permission.
+#
+#  This software and the related documents are provided as is, with no express or implied warranties,
+#  other than those that are expressly stated in the License.
+
+enabled:
+  account-service: true
+  notifier: False
+  onboarding-service: false
+  credit-system: false
+  auth-proxy: true
+  initial-user: true
+
+
+
+notifier:
+  kafka:
+    topic: project_notifications
+    security_protocol: "SASL_PLAINTEXT"
+    address: impt-kafka.impt:9092
+
+global:
+  install_telemetry_stack: 
+  enable_local_image_pull_secret: true
+  manage_users: false
+  manage_users_roles: true
+  acc_svc_mod: false
+  smtp_host: 
+  smtp_port: 0
+  s3_endpoint: impt-seaweed-fs.impt:8333
+  registry_address: localhost:5000
+  docker_namespace: open-edge-platform/geti
+  tag: 2.13.1-de29b7ba
+  ldap_service_user_secret_name: "impt-ldap-service-user"
+  istio_ambient_mesh: False
+
+  istio_gateway_name: "istio-gateway"
+  istio_ingress_namespace: "istio-system"
+
+  logging_config_dir: "/mnt/logging_config"
+  running_on_vm: False
+  initial_admin_user_login: "sysc@intel.com"
+
+  initial_admin_user_password: "Tr@nsf3r"
+  account_service_mode: "setup"
+
+  security_headers: |
+    X-Frame-Options: "DENY"
+    Content-Security-Policy: "frame-ancestors 'none'; default-src 'self'; media-src 'self' https://docs.geti.intel.com/on-prem/2.6/; connect-src 'self' data: https://consumerdev.intel.com/ https://login.microsoftonline.com/; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval' blob:; img-src 'self' data:; frame-src 'none'; object-src 'none'; form-action 'self'; worker-src 'self' blob:"
+    cross-origin-embedder-policy: require-corp
+    cross-origin-opener-policy: same-origin
+    X-Content-Type-Options: "nosniff"
+  stripped_headers: |
+    - "X-Envoy-Decorator-Operation"
+  
+  cors_policy:
+    enabled: true
+    allowed_origins:
+      - exact: "https://docs.geti.intel.com"
+
+    allowed_headers:
+      - Authorization
+      - Content-Type
+      - tus-resumable
+      - upload-length
+      - upload-length
+      - x-geti-csrf-protection
+      - cookie
+      - x-api-key
+    allowed_methods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+    max_age: 86400s
+    allow_credentials: true
+16:50:19,965 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:50:19,965 platform_utils.helm INFO Pulling chart 'control-plane', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/control-plane:2.13.1-de29b7ba
+Digest: sha256:dbaf077c3cae15930cc18e9a7ffdbccc8b6f77c8285e58274365383650bf1adb
+16:50:19,999 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:50:19,999 platform_utils.k8s INFO Check if ip is properly assigned.
+16:50:20,8 platform_utils.k8s DEBUG Is endpoint ready: True
+16:50:20,8 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:50:20,8 platform_utils.k8s INFO Check if ip is properly assigned.
+16:50:20,10 platform_utils.k8s DEBUG Is endpoint ready: True
+16:50:20,10 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:50:20,10 platform_utils.k8s INFO Check if ip is properly assigned.
+16:50:20,12 platform_utils.k8s DEBUG Is endpoint ready: True
+16:50:20,12 platform_utils.helm INFO Installing chart 'control-plane' from '/tmp/impp-install/control-plane'.
+16:50:20,12 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i control-plane --namespace=impt /tmp/impp-install/control-plane --history-max=3 --wait=true --timeout=10m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --values=/tmp/impp-install/control-plane-values.yaml
+Release "control-plane" does not exist. Installing it now.
+W0809 16:50:20.428793  339985 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:50:20.431494  339985 warnings.go:70] EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+W0809 16:50:20.493335  339985 warnings.go:70] virtualService rule #53 match #0 is not used (duplicate/overlapping match in rule #51)
+W0809 16:50:20.493368  339985 warnings.go:70] virtualService rule #53 not used (all matches used by prior rules)
+NAME: control-plane
+LAST DEPLOYED: Sun Aug  9 16:50:20 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:50:48,523 platform_utils.helm INFO Generating Jinja template.
+16:50:48,528 platform_utils.helm DEBUG Template: ---
+#  INTEL CONFIDENTIAL
+#
+#  Copyright (C) 2025 Intel Corporation
+#
+#  This software and the related documents are Intel copyrighted materials, and your use of them is governed by
+#  the express license under which they were provided to you ("License"). Unless the License provides otherwise,
+#  you may not use, modify, copy, publish, distribute, disclose or transmit this software or the related documents
+#  without Intel's prior written permission.
+#
+#  This software and the related documents are provided as is, with no express or implied warranties,
+#  other than those that are expressly stated in the License.
+
+global:
+  ff_ambient_mesh: False
+  grafana_enabled: False
+  enable_local_image_pull_secret: true
+  registry_address: localhost:5000
+  docker_namespace: "open-edge-platform/geti"
+  tag: 2.13.1-de29b7ba
+16:50:48,528 platform_utils.helm INFO Generation of Jinja template succeeded.
+16:50:48,528 platform_stages.steps.deploy_migration_job INFO Running migration.
+16:50:48,529 platform_utils.helm INFO Pulling chart 'migration-job', version '2.13.1-de29b7ba', to '/tmp/impp-install'
+Pulled: localhost:5000/open-edge-platform/geti/helm/migration-job:2.13.1-de29b7ba
+Digest: sha256:3348e1a3b41c0be06c9577e0bae0003866b05624d4c3ddce92a0480e2fc06920
+16:50:48,568 platform_utils.k8s INFO For endpoint 'istiod' in namespace 'istio-system':
+16:50:48,568 platform_utils.k8s INFO Check if ip is properly assigned.
+16:50:48,573 platform_utils.k8s DEBUG Is endpoint ready: True
+16:50:48,573 platform_utils.k8s INFO For endpoint 'cert-manager-webhook' in namespace 'cert-manager':
+16:50:48,573 platform_utils.k8s INFO Check if ip is properly assigned.
+16:50:48,576 platform_utils.k8s DEBUG Is endpoint ready: True
+16:50:48,576 platform_utils.k8s INFO For endpoint 'admission-controller' in namespace 'opa-istio':
+16:50:48,576 platform_utils.k8s INFO Check if ip is properly assigned.
+16:50:48,578 platform_utils.k8s DEBUG Is endpoint ready: True
+16:50:48,578 platform_utils.helm INFO Installing chart 'migration-job' from '/tmp/impp-install/migration-job'.
+16:50:48,578 platform_utils.helm DEBUG Invoked following command: 
+./tools/helm upgrade -i migration-job --namespace=impt /tmp/impp-install/migration-job --history-max=3 --wait=true --timeout=5000m --force --kubeconfig=/etc/rancher/k3s/k3s.yaml --wait-for-jobs --version=2.13.1-de29b7ba --values=/tmp/impp-install/migration-job-values.yaml
+Release "migration-job" does not exist. Installing it now.
+NAME: migration-job
+LAST DEPLOYED: Sun Aug  9 16:50:48 2026
+NAMESPACE: impt
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+16:50:56,678 platform_stages.steps.deploy_migration_job INFO Migration completed.
+16:50:56,678 platform_stages.steps.deploy_migration_job INFO Saving migration logs to platform_logs/migration.log
+16:50:56,701 platform_utils.k8s INFO Logs for job migration-job-fdbhb:
+2026-08-09 09:50:51,986 [INFO    ] [migration_job.run_migration:245]: === Platform migrations job script ===
+2026-08-09 09:50:51,986 [INFO    ] [migration_job.run_migration:246]: MongoDB database: 'geti'
+2026-08-09 09:50:52,009 [WARNING ] [migration_job.mongodb_upgrades_history:74]: Could not determine the current data version through the database (found 'None'); defaulting to '1.0'.
+2026-08-09 09:50:52,010 [INFO    ] [migration_job.run_migration:153]: Migration from data version 1.0 to 35.0 will go through ('2.0', '3.0', '4.0', '5.0', '6.0', '7.0', '8.0', '9.0', '10.0', '11.0', '12.0', '13.0', '14.0', '15.0', '16.0', '17.0', '18.0', '19.0', '20.0', '21.0', '22.0', '23.0', '24.0', '25.0', '26.0', '27.0', '28.0', '29.0', '30.0', '31.0', '32.0', '33.0', '34.0', '35.0').
+2026-08-09 09:50:52,290 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 2.0
+2026-08-09 09:50:52,290 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 2.0
+2026-08-09 09:50:52,291 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'image_size_as_integer.py', 'author': None, 'description': 'Save size of image as integer', 'backward_compatibility': None, 'downgradability': True, 'current_version': '1.0', 'target_version': '2.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 289848, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 290988, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c889')}
+2026-08-09 09:50:52,292 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 3.0
+2026-08-09 09:50:52,292 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 3.0
+2026-08-09 09:50:52,293 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'set_annotation_filter_config_params.py', 'author': None, 'description': "Add new configurable parameters 'minimum_annotation_size' and 'maximum_number_of_annotations'", 'backward_compatibility': None, 'downgradability': True, 'current_version': '2.0', 'target_version': '3.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 291789, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 292532, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c88a')}
+2026-08-09 09:50:52,293 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 4.0
+2026-08-09 09:50:52,293 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 4.0
+2026-08-09 09:50:52,294 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'introduce_evaluation_result.py', 'author': None, 'description': 'Introduces new evaluation_result collection, unifying data from result_set and model_test_result collections but do not replace them. Migration is backward compatible.', 'backward_compatibility': None, 'downgradability': True, 'current_version': '3.0', 'target_version': '4.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 293194, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 293804, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c88b')}
+2026-08-09 09:50:52,294 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 5.0
+2026-08-09 09:50:52,295 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 5.0
+2026-08-09 09:50:52,295 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'set_training_framework_in_models.py', 'author': None, 'description': "Set field 'training_framework' to a default value in existing models'", 'backward_compatibility': None, 'downgradability': True, 'current_version': '4.0', 'target_version': '5.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 294426, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 295031, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c88c')}
+2026-08-09 09:50:52,296 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 6.0
+2026-08-09 09:50:52,344 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 6.0
+2026-08-09 09:50:52,344 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'add_project_type.py', 'author': None, 'description': 'Add project type to project', 'backward_compatibility': None, 'downgradability': True, 'current_version': '5.0', 'target_version': '6.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 295706, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 344108, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c88e')}
+2026-08-09 09:50:52,345 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 7.0
+2026-08-09 09:50:52,345 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 7.0
+2026-08-09 09:50:52,345 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'remove_empty_annotation_scene.py', 'author': None, 'description': 'Remove empty annotation scenes, if they are the first annotation scene for an image', 'backward_compatibility': None, 'downgradability': True, 'current_version': '6.0', 'target_version': '7.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 344887, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 345448, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c88f')}
+2026-08-09 09:50:52,346 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 8.0
+2026-08-09 09:50:52,371 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 8.0
+2026-08-09 09:50:52,372 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'remove_result_media.py', 'author': None, 'description': 'Drops the result media bucket and removes result media from the metadata_item collection.', 'backward_compatibility': None, 'downgradability': False, 'current_version': '7.0', 'target_version': '8.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 345885, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 371497, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c891')}
+2026-08-09 09:50:52,372 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 9.0
+2026-08-09 09:50:52,381 [INFO    ] [migration.scripts.new_annotation_scene_index:40]: Dropped index on annotation_scene collection: media_identifier_-1
+2026-08-09 09:50:52,381 [INFO    ] [migration.scripts.new_annotation_scene_index:40]: Dropped index on annotation_scene collection: media_identifier.media_id_-1
+2026-08-09 09:50:52,382 [INFO    ] [migration.scripts.new_annotation_scene_index:40]: Dropped index on annotation_scene collection: kind_-1
+2026-08-09 09:50:52,382 [INFO    ] [migration.scripts.new_annotation_scene_index:40]: Dropped index on annotation_scene collection: model_ids_-1
+2026-08-09 09:50:52,383 [INFO    ] [migration.scripts.new_annotation_scene_index:40]: Dropped index on annotation_scene collection: dataset_storage_id_-1_kind_-1_media_identifier_1__id_-1
+2026-08-09 09:50:52,383 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 9.0
+2026-08-09 09:50:52,383 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'new_annotation_scene_index.py', 'author': None, 'description': 'Replace old annotation scene indexes with new ones', 'backward_compatibility': None, 'downgradability': True, 'current_version': '8.0', 'target_version': '9.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 372279, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 383301, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c893')}
+2026-08-09 09:50:52,384 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 10.0
+2026-08-09 09:50:52,384 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 10.0
+2026-08-09 09:50:52,385 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'add_extension_field_to_video_document.py', 'author': None, 'description': "Adds and populates the 'extension' field, if not present, from the binary_filename property for video documents", 'backward_compatibility': None, 'downgradability': True, 'current_version': '9.0', 'target_version': '10.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 383912, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 384528, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c894')}
+2026-08-09 09:50:52,385 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 11.0
+2026-08-09 09:50:52,385 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 11.0
+2026-08-09 09:50:52,386 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'add_media_filter_data.py', 'author': None, 'description': 'Add size and video info to filter data', 'backward_compatibility': None, 'downgradability': True, 'current_version': '10.0', 'target_version': '11.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 385055, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 385615, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c895')}
+2026-08-09 09:50:52,386 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 12.0
+2026-08-09 09:50:52,386 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 12.0
+2026-08-09 09:50:52,387 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'set_train_validation_remixing_config_params.py', 'author': None, 'description': "Add new configurable parameter 'train_validation_remixing'", 'backward_compatibility': None, 'downgradability': True, 'current_version': '11.0', 'target_version': '12.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 386107, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 386600, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c896')}
+2026-08-09 09:50:52,387 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 13.0
+2026-08-09 09:50:52,396 [INFO    ] [migration.scripts.remove_auto_train_policy:30]: Dropped collection 'auto_train_policy'
+2026-08-09 09:50:52,396 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 13.0
+2026-08-09 09:50:52,397 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'remove_auto_train_policy.py', 'author': None, 'description': "Drop the 'auto_train_policy' MongoDB collection", 'backward_compatibility': None, 'downgradability': True, 'current_version': '12.0', 'target_version': '13.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 387064, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 396356, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c898')}
+2026-08-09 09:50:52,398 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 14.0
+2026-08-09 09:50:52,398 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 14.0
+2026-08-09 09:50:52,398 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'add_model_purge_info.py', 'author': None, 'description': 'Adds the model purge info to models if it does not exist yet', 'backward_compatibility': None, 'downgradability': True, 'current_version': '13.0', 'target_version': '14.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 397647, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 398343, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c899')}
+2026-08-09 09:50:52,399 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 15.0
+2026-08-09 09:50:52,399 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 15.0
+2026-08-09 09:50:52,399 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'set_dynamic_required_annotations_config_params.py', 'author': None, 'description': "Add new configurable parameters 'use_dynamic_required_annotations' and 'required_images_auto_training_dynamic' ", 'backward_compatibility': None, 'downgradability': True, 'current_version': '14.0', 'target_version': '15.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 398872, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 399365, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c89a')}
+2026-08-09 09:50:52,400 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 16.0
+2026-08-09 09:50:52,400 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 16.0
+2026-08-09 09:50:52,400 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'reconcile_media_extension.py', 'author': None, 'description': "Update the 'extension' field of media documents to be consistent with 'binary_filename', in case they don't match.", 'backward_compatibility': None, 'downgradability': True, 'current_version': '15.0', 'target_version': '16.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 399833, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 400327, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c89b')}
+2026-08-09 09:50:52,401 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 17.0
+2026-08-09 09:50:52,401 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 17.0
+2026-08-09 09:50:52,401 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'remove_binary_filename_from_media_docs.py', 'author': None, 'description': "Remove the 'binary_filename' field in video and image documents", 'backward_compatibility': None, 'downgradability': True, 'current_version': '16.0', 'target_version': '17.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 400862, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 401363, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c89c')}
+2026-08-09 09:50:52,402 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 18.0
+2026-08-09 09:50:52,402 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 18.0
+2026-08-09 09:50:52,402 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'remove_empty_annotations.py', 'author': None, 'description': 'Removes empty annotations that could be in the database after a bug in label deletion.', 'backward_compatibility': None, 'downgradability': True, 'current_version': '17.0', 'target_version': '18.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 401789, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 402224, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c89d')}
+2026-08-09 09:50:52,403 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 19.0
+2026-08-09 09:50:52,403 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 19.0
+2026-08-09 09:50:52,403 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'adjust_hyper_params.py', 'author': None, 'description': 'Update headers and description of a couple training related parameters', 'backward_compatibility': None, 'downgradability': True, 'current_version': '18.0', 'target_version': '19.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 402649, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 403139, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c89e')}
+2026-08-09 09:50:52,404 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 20.0
+2026-08-09 09:50:52,413 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 20.0
+2026-08-09 09:50:52,413 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'remove_result_set_and_model_test_result.py', 'author': None, 'description': 'Empty the result_set and model_test_result collections, as they are replaced by evaluation_result', 'backward_compatibility': None, 'downgradability': False, 'current_version': '19.0', 'target_version': '20.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 403640, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 413449, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8a0')}
+2026-08-09 09:50:52,414 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 21.0
+2026-08-09 09:50:52,422 [INFO    ] [migration.scripts.remove_ndr:63]: Dropped collection 'ndr_config'
+2026-08-09 09:50:52,423 [INFO    ] [migration.scripts.remove_ndr:63]: Dropped collection 'ndr_hash'
+2026-08-09 09:50:52,423 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 21.0
+2026-08-09 09:50:52,423 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'remove_ndr.py', 'author': None, 'description': 'Drops the ndr_config and ndr_hash collection, and removes use_ndr field from configurable parameters.', 'backward_compatibility': None, 'downgradability': True, 'current_version': '20.0', 'target_version': '21.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 414013, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 423145, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8a2')}
+2026-08-09 09:50:52,424 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 22.0
+2026-08-09 09:50:52,432 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on training_revision_filter collection: dataset_id_-1
+2026-08-09 09:50:52,432 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on training_revision_filter collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,433 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on dataset_item collection: dataset_id_-1
+2026-08-09 09:50:52,433 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on dataset_item collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,434 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on annotation_scene collection: dataset_storage_id_-1
+2026-08-09 09:50:52,434 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on annotation_scene collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,434 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on annotation_scene_state collection: dataset_storage_id_-1
+2026-08-09 09:50:52,435 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on annotation_scene_state collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,435 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on compiled_dataset_shard collection: dataset_storage_id_-1
+2026-08-09 09:50:52,436 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on compiled_dataset_shard collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,436 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on dataset collection: dataset_storage_id_-1
+2026-08-09 09:50:52,436 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on dataset collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,437 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on dataset_storage_filter_data collection: dataset_storage_id_-1
+2026-08-09 09:50:52,437 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on dataset_storage_filter_data collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,437 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on image collection: dataset_storage_id_-1
+2026-08-09 09:50:52,438 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on image collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,438 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on media_score collection: dataset_storage_id_-1
+2026-08-09 09:50:52,439 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on media_score collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,439 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on metadata_item collection: dataset_storage_id_-1
+2026-08-09 09:50:52,439 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on metadata_item collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,440 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on pipeline_dataset_entity collection: dataset_storage_id_-1
+2026-08-09 09:50:52,440 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on pipeline_dataset_entity collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,441 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on suspended_annotation_scenes collection: dataset_storage_id_-1
+2026-08-09 09:50:52,441 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on suspended_annotation_scenes collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,442 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on video collection: dataset_storage_id_-1
+2026-08-09 09:50:52,442 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on video collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,443 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on video_annotation_range collection: dataset_storage_id_-1
+2026-08-09 09:50:52,443 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on video_annotation_range collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,443 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on model collection: model_storage_id_-1
+2026-08-09 09:50:52,444 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on model collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,444 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on active_model_state collection: project_id_-1
+2026-08-09 09:50:52,445 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on active_model_state collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,445 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on annotation_template collection: project_id_-1
+2026-08-09 09:50:52,445 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on annotation_template collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,446 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on configurable_parameters collection: project_id_-1
+2026-08-09 09:50:52,446 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on configurable_parameters collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,447 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on dataset_storage collection: project_id_-1
+2026-08-09 09:50:52,447 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on dataset_storage collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,448 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on evaluation_result collection: project_id_-1
+2026-08-09 09:50:52,448 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on evaluation_result collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,448 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on label_schema collection: project_id_-1
+2026-08-09 09:50:52,449 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on label_schema collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,449 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on model_storage collection: project_id_-1
+2026-08-09 09:50:52,450 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on model_storage collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,450 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on task_node collection: project_id_-1
+2026-08-09 09:50:52,450 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on task_node collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,451 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on vps_reference_feature collection: project_id_-1
+2026-08-09 09:50:52,451 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on vps_reference_feature collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,451 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on project collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,452 [WARNING ] [migration.scripts.drop_unused_indexes:132]: Could not drop index with name organization_id_-1_location_-1 on auto_train_activation collection: presumably it was dropped before.
+2026-08-09 09:50:52,452 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on file_metadata collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,453 [WARNING ] [migration.scripts.drop_unused_indexes:132]: Could not drop index with name organization_id_-1_location_-1 on job collection: presumably it was dropped before.
+2026-08-09 09:50:52,453 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on upload_operation collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,454 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on ui_settings collection: organization_id_-1_location_-1
+2026-08-09 09:50:52,454 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on model collection: model_status_-1
+2026-08-09 09:50:52,455 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on model collection: optimization_type_-1
+2026-08-09 09:50:52,455 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on training_revision_filter collection: media_identifier.media_id_-1
+2026-08-09 09:50:52,455 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on training_revision_filter collection: media_identifier.type_-1
+2026-08-09 09:50:52,456 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on training_revision_filter collection: subset_-1
+2026-08-09 09:50:52,456 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on training_revision_filter collection: label_ids_-1
+2026-08-09 09:50:52,456 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on training_revision_filter collection: name_-1
+2026-08-09 09:50:52,457 [INFO    ] [migration.scripts.drop_unused_indexes:130]: Dropped index on training_revision_filter collection: upload_date_-1
+2026-08-09 09:50:52,457 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 22.0
+2026-08-09 09:50:52,458 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'drop_unused_indexes.py', 'author': None, 'description': 'Drop unused indexes in MongoDB', 'backward_compatibility': None, 'downgradability': True, 'current_version': '21.0', 'target_version': '22.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 423687, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 457390, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8a4')}
+2026-08-09 09:50:52,458 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 23.0
+2026-08-09 09:50:52,472 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 23.0
+2026-08-09 09:50:52,473 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'drop_operation_collection.py', 'author': None, 'description': 'Drop unused operation collection in MongoDB', 'backward_compatibility': None, 'downgradability': True, 'current_version': '22.0', 'target_version': '23.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 458073, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 472502, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8a6')}
+2026-08-09 09:50:52,473 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 24.0
+2026-08-09 09:50:52,473 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 24.0
+2026-08-09 09:50:52,474 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'update_media_score.py', 'author': None, 'description': 'Update schema for the score objects', 'backward_compatibility': None, 'downgradability': True, 'current_version': '23.0', 'target_version': '24.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 473205, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 473817, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8a7')}
+2026-08-09 09:50:52,474 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 25.0
+2026-08-09 09:50:52,474 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 25.0
+2026-08-09 09:50:52,475 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'correct_vfr_video_fps.py', 'author': None, 'description': 'Corrects the fps value for VFR videos', 'backward_compatibility': None, 'downgradability': True, 'current_version': '24.0', 'target_version': '25.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 474301, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 474775, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8a8')}
+2026-08-09 09:50:52,476 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 26.0
+2026-08-09 09:50:52,476 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 26.0
+2026-08-09 09:50:52,476 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'fix_auto_num_workers.py', 'author': None, 'description': "Removes auto_num_workers from configurable_parameters if it doesn't contain any value", 'backward_compatibility': None, 'downgradability': True, 'current_version': '25.0', 'target_version': '26.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 475630, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 476077, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8a9')}
+2026-08-09 09:50:52,476 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 27.0
+2026-08-09 09:50:52,485 [INFO    ] [migration.scripts.sanitize_media_binary_extension:64]: Sanitized extensions of 0 images from binary storage
+2026-08-09 09:50:52,489 [INFO    ] [migration.scripts.sanitize_media_binary_extension:64]: Sanitized extensions of 0 videos from binary storage
+2026-08-09 09:50:52,489 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 27.0
+2026-08-09 09:50:52,490 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'sanitize_media_binary_extension.py', 'author': None, 'description': 'Converts media binaries extensions to be lower case.', 'backward_compatibility': None, 'downgradability': True, 'current_version': '26.0', 'target_version': '27.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 476498, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 489834, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8aa')}
+2026-08-09 09:50:52,491 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 28.0
+2026-08-09 09:50:52,491 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 28.0
+2026-08-09 09:50:52,491 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'add_media_preprocessing.py', 'author': None, 'description': 'Adds media preprocessing data with status FINISHED', 'backward_compatibility': None, 'downgradability': True, 'current_version': '27.0', 'target_version': '28.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 490660, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 491278, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8ab')}
+2026-08-09 09:50:52,492 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 29.0
+2026-08-09 09:50:52,492 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 29.0
+2026-08-09 09:50:52,492 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'add_media_extension_to_filter_data.py', 'author': None, 'description': "Adds and populates the 'media_extension' field, if not present, in filter data docs", 'backward_compatibility': None, 'downgradability': True, 'current_version': '28.0', 'target_version': '29.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 491772, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 492278, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8ac')}
+2026-08-09 09:50:52,493 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 30.0
+2026-08-09 09:50:52,493 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 30.0
+2026-08-09 09:50:52,493 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'add_dataset_storage_filter_data_preprocessing.py', 'author': None, 'description': 'Adds dataset storage filter data preprocessing data with status FINISHED', 'backward_compatibility': None, 'downgradability': True, 'current_version': '29.0', 'target_version': '30.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 492896, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 493393, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8ad')}
+2026-08-09 09:50:52,494 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 31.0
+2026-08-09 09:50:52,509 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 31.0
+2026-08-09 09:50:52,509 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'jobs_project_id_as_object_id.py', 'author': None, 'description': 'Change project_id from string to object id in job docs', 'backward_compatibility': None, 'downgradability': True, 'current_version': '30.0', 'target_version': '31.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 493893, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 509208, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8af')}
+2026-08-09 09:50:52,510 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 32.0
+2026-08-09 09:50:52,520 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 32.0
+2026-08-09 09:50:52,520 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'drop_code_deployment_collection.py', 'author': None, 'description': 'Drop unused code deployment collection in MongoDB', 'backward_compatibility': None, 'downgradability': True, 'current_version': '31.0', 'target_version': '32.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 509767, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 520128, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8b1')}
+2026-08-09 09:50:52,521 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 33.0
+2026-08-09 09:50:52,521 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 33.0
+2026-08-09 09:50:52,521 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'reduce_anomaly_tasks.py', 'author': None, 'description': 'Performs the anomaly reduction process of: Anomaly Classification, Anomaly Detection, and Anomaly segmentation, to Anomaly.', 'backward_compatibility': None, 'downgradability': False, 'current_version': '32.0', 'target_version': '33.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 520840, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 521453, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8b2')}
+2026-08-09 09:50:52,522 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 34.0
+2026-08-09 09:50:52,530 [INFO    ] [migration.scripts.remove_premature_configuration:31]: Dropped collection 'project_configuration'
+2026-08-09 09:50:52,531 [INFO    ] [migration.scripts.remove_premature_configuration:31]: Dropped collection 'training_configuration'
+2026-08-09 09:50:52,531 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 34.0
+2026-08-09 09:50:52,532 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'remove_premature_configuration.py', 'author': None, 'description': 'Remove premature configuration that should not exist prior to Geti 2.12.0', 'backward_compatibility': None, 'downgradability': True, 'current_version': '33.0', 'target_version': '34.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 521943, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 531378, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8b4')}
+2026-08-09 09:50:52,532 [INFO    ] [migration_job.run_migration:189]: Starting upgrade of non-project data to 35.0
+2026-08-09 09:50:52,532 [INFO    ] [migration_job.run_migration:191]: Completed upgrade of non-project data to 35.0
+2026-08-09 09:50:52,533 [INFO    ] [migration_job.run_migration:203]: The following document has been inserted into upgrades_history collection:{'id': None, 'filepath': 'convert_vfr_videos_to_cfr.py', 'author': None, 'description': 'Converts variable frame rate videos to constant frame rate', 'backward_compatibility': None, 'downgradability': True, 'current_version': '34.0', 'target_version': '35.0', 'start_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 532082, tzinfo=datetime.timezone.utc), 'stop_date': datetime.datetime(2026, 8, 9, 9, 50, 52, 532686, tzinfo=datetime.timezone.utc), '_id': ObjectId('6a784d7c0dd5865cef98c8b5')}
+2026-08-09 09:50:52,533 [INFO    ] [migration_job.run_migration:223]: All data updated successfully to 35.0
+2026-08-09 09:50:52,533 [INFO    ] [migration_job.run_migration:258]: Successfully finished job
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100     2  100     2    0     0   4819      0 --:--:-- --:--:-- --:--:--  2000
+OK

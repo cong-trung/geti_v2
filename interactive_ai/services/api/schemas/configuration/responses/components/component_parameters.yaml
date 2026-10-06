@@ -5,8 +5,7 @@ properties:
     $ref: "../../../mongo_id.yaml"
   type:
     type: string
-    description: "Type of the configurable parameters. For component parameters the type is always
-    'CONFIGURABLE_PARAMETERS'."
+    description: "Type of the configurable parameters. For component parameters the type is always 'CONFIGURABLE_PARAMETERS'."
     enum: ["CONFIGURABLE_PARAMETERS", "PARAMETER_GROUP"]
   entity_identifier:
     $ref: "../entity_identifiers/entity_identifier.yaml"

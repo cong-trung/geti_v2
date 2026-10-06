@@ -56,7 +56,7 @@ COPY --link --from=libs . libs
 WORKDIR /interactive_ai/workflows/train/trainer
 RUN chown -R 10001:10001 /interactive_ai/workflows/train/trainer
 
-COPY --link --from=ghcr.io/astral-sh/uv:0.6.12@sha256:515b886e8eb99bcf9278776d8ea41eb4553a794195ef5803aa7ca6258653100d /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.6.12@sha256:515b886e8eb99bcf9278776d8ea41eb4553a794195ef5803aa7ca6258653100d /uv /bin/uv
 
 COPY --link scripts/ scripts
 COPY --link run run
@@ -122,9 +122,9 @@ COPY --link --from=python_dependencies --chown=10001 /interactive_ai /interactiv
 
 WORKDIR /interactive_ai/workflows/train/trainer
 
-COPY --link scripts/ scripts
-COPY --link run run
-COPY --link download_pretrained_weights.py download_pretrained_weights.py
+COPY --link --chown=10001 scripts/ scripts
+COPY --link --chown=10001 run run
+COPY --link --chown=10001 download_pretrained_weights.py download_pretrained_weights.py
 
 ENV PATH="/interactive_ai/workflows/train/trainer/.venv/bin:/interactive_ai/workflows/train/trainer:$PATH"
 ENV PYTHONPATH="/interactive_ai/workflows/train/trainer"

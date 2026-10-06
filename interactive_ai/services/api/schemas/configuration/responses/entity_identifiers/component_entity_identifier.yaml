@@ -14,6 +14,5 @@ properties:
     description: Describes the component to which the configurable parameters apply
   type:
     type: string
-    description: "Describes the type of the configuration. Set to COMPONENT_PARAMETERS for a configuration that
-      relates to a component."
+    description: "Describes the type of the configuration. Set to COMPONENT_PARAMETERS for a configuration that relates to a component."
     enum: ["COMPONENT_PARAMETERS"]

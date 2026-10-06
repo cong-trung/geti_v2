@@ -31,4 +31,8 @@ dependencies:
     version: ${TAG}
     repository: "file://../../../../../platform/services/initial_user/.build/chart"
     condition: enabled.initial-user
+  - name: user-directory
+    version: ${TAG}
+    repository: "file://../../../../../platform/services/user_directory/.build/chart"
+    condition: enabled.user-directory
 

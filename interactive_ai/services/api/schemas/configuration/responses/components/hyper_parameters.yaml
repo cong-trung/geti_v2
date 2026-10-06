@@ -7,8 +7,7 @@ properties:
     $ref: "../entity_identifiers/entity_identifier.yaml"
   type:
     type: string
-    description: "Type of the configurable parameters. For hyper parameters the type is always
-    'CONFIGURABLE_PARAMETERS'."
+    description: "Type of the configurable parameters. For hyper parameters the type is always 'CONFIGURABLE_PARAMETERS'."
     enum: ["CONFIGURABLE_PARAMETERS", "PARAMETER_GROUP"]
   header:
     type: string

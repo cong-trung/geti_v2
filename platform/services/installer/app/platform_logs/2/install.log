@@ -1,0 +1,175 @@
+15:28:27,485 commands.install INFO 2.13.1-de29b7ba Running platform installer...
+15:28:27,486 cli_utils.checks INFO Running check: check_user_id
+15:28:27,486 cli_utils.checks INFO Running check: check_os_version
+15:28:27,486 checks.os DEBUG Checking OS version with `grep ^PRETTY /etc/os-release`
+15:28:27,488 checks.os DEBUG Local OS: Ubuntu 24.04.4 LTS, required OS: Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, Ubuntu 25.04, Red Hat Enterprise Linux 9.
+15:28:27,488 cli_utils.checks INFO Running check: check_internet_connection
+15:28:27,488 checks.internet INFO Checking Internet access.
+15:28:27,488 checks.internet DEBUG Sending request to http://ghcr.io...
+15:28:27,489 urllib3.connectionpool DEBUG Starting new HTTP connection (1): proxy-dmz.intel.com:911
+15:28:27,666 urllib3.connectionpool DEBUG http://proxy-dmz.intel.com:911 "HEAD http://ghcr.io/ HTTP/1.1" 301 0
+15:28:27,667 checks.internet DEBUG Internet is accessible.
+15:28:27,668 cli_utils.checks INFO Running check: check_dns_ipv4_handling
+15:28:27,668 checks.dns INFO Checking IPv4 DNS resolve.
+15:28:27,668 checks.dns DEBUG Resolving DNS to example.com
+15:28:27,727 checks.dns DEBUG DNS did resolve to example.com
+15:28:29,465 cli_utils.checks INFO Running check: check_local_cpu
+15:28:29,465 checks.resources INFO Checking number of CPU cores.
+15:28:29,465 checks.resources DEBUG PLATFORM_CPU_CORES_MIN: 16, available logical CPU cores: 20.
+15:28:29,465 cli_utils.checks INFO Running check: check_local_mem
+15:28:29,465 checks.resources INFO Checking available memory size.
+15:28:29,466 checks.resources DEBUG Memory size requirements: 64 GB, memory available: 66.86 GB.
+15:28:29,466 cli_utils.checks INFO Running check: check_local_disk
+15:28:29,466 checks.resources INFO Checking size of available disk space.
+15:28:29,467 checks.resources DEBUG Disk space requirements: 500 GB, disk space available: 864.84 GB.
+15:28:29,467 checks.resources INFO Checking size of available root disk space.
+15:28:29,467 checks.resources DEBUG Root filesystem requirements: 40 GB, root disk space available: 864.84 GB.
+15:28:29,467 cli_utils.checks INFO Running check: check_local_gpu
+15:28:29,467 checks.resources INFO Checking GPU card requirements.
+15:28:29,467 checks.resources INFO Checking GPU card requirements.
+15:28:29,571 checks.resources ERROR Error shutting down NVML: Uninitialized
+15:28:29,571 checks.resources DEBUG Getting the list of Intel GPU with `xpu-smi discovery`
+15:28:29,572 checks.resources DEBUG Getting the list of Intel GPU failed with [Errno 2] No such file or directory: 'xpu-smi'
+15:28:29,572 checks.resources DEBUG Getting the list of Intel GPU drivers with clinfo|grep "Device Name"|grep Intel
+15:28:29,573 checks.resources DEBUG Checking the installed Intel GPU driver failed with Command 'clinfo|grep "Device Name"|grep Intel' returned non-zero exit status 1.
+15:28:29,573 checks.resources INFO GPU provider: nvidia
+15:28:29,573 checks.resources DEBUG Found nVidia GPUs: NVIDIA GeForce RTX 5090, mem=32607MiB
+15:28:29,574 cli_utils.checks INFO Running check: check_gpu_driver_version
+15:28:29,574 checks.resources INFO Checking GPU driver version.
+15:28:29,606 checks.resources DEBUG GPU driver version matched.
+15:28:29,606 cli_utils.checks INFO Running check: check_k8s_is_not_installed
+15:28:29,606 checks.k8s INFO Checking whether Kubernetes is not installed...
+15:28:29,606 checks.ports DEBUG Port 6443 is available.
+15:28:29,607 cli_utils.checks INFO Running check: check_required_ports_availability
+15:28:29,607 checks.ports INFO Checking whether required ports [80, 443, 30000] are available.
+15:28:29,607 checks.ports DEBUG Port 80 is available.
+15:28:29,607 checks.ports DEBUG Port 443 is available.
+15:28:29,607 checks.ports DEBUG Port 30000 is available.
+15:28:29,607 cli_utils.checks INFO Running check: check_tools_configuration
+15:28:29,607 checks.tools DEBUG Checking curl is installed
+15:28:29,621 checks.tools DEBUG curl is installed.
+15:28:29,622 checks.tools DEBUG Checking if snap is installed
+15:28:29,818 checks.tools DEBUG snap is installed.
+15:28:29,818 checks.tools DEBUG Checking if curl is installed by snap.
+15:30:20,182 platform_stages.steps.install_system_packages INFO Downloading system packages...
+15:30:20,185 platform_stages.steps.install_system_packages INFO Downloading https://get.helm.sh/helm-v3.16.1-linux-amd64.tar.gz to tools/helm-v3.16.1-linux-amd64.tar.gz...
+15:30:20,186 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): get.helm.sh:443
+15:30:20,829 urllib3.connectionpool DEBUG https://get.helm.sh:443 "GET /helm-v3.16.1-linux-amd64.tar.gz HTTP/1.1" 200 17323067
+15:30:22,478 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/helm-v3.16.1-linux-amd64.tar.gz
+15:30:23,24 platform_stages.steps.install_system_packages INFO Extracted helm to tools/
+15:30:23,24 platform_stages.steps.install_system_packages INFO Removed archive tools/helm-v3.16.1-linux-amd64.tar.gz
+15:30:23,25 platform_stages.steps.install_system_packages INFO Downloading https://github.com/k3s-io/k3s/releases/download/v1.31.0+k3s1/k3s to tools/k3s/k3s...
+15:30:23,25 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): github.com:443
+15:30:24,141 urllib3.connectionpool DEBUG https://github.com:443 "GET /k3s-io/k3s/releases/download/v1.31.0+k3s1/k3s HTTP/1.1" 302 0
+15:30:24,142 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): release-assets.githubusercontent.com:443
+15:30:24,775 urllib3.connectionpool DEBUG https://release-assets.githubusercontent.com:443 "GET /github-production-release-asset/135516270/6045f6b7-cc52-4090-abe1-56f3e2a0ce71?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-08-09T09%3A29%3A55Z&rscd=attachment%3B+filename%3Dk3s&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-08-09T08%3A29%3A30Z&ske=2026-08-09T09%3A29%3A55Z&sks=b&skv=2018-11-09&sig=bYp2rpaia4BwvDt7w1AmJ9Bk%2FQDuj0XHsclkzVkFBY0%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NjI2NjAyNCwibmJmIjoxNzg2MjY0MjI0LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.PEoowhhxFcXnHJjsaJs9sUoX0kOOfPQjAW3DnD5XAJI&response-content-disposition=attachment%3B%20filename%3Dk3s&response-content-type=application%2Foctet-stream HTTP/1.1" 200 68305048
+15:30:30,805 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/k3s/k3s
+15:30:30,806 platform_stages.steps.install_system_packages INFO Downloading https://github.com/k3s-io/k3s/releases/download/v1.31.0+k3s1/k3s-airgap-images-amd64.tar.gz to tools/k3s/k3s-airgap-images-amd64.tar.gz...
+15:30:30,807 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): github.com:443
+15:30:31,475 urllib3.connectionpool DEBUG https://github.com:443 "GET /k3s-io/k3s/releases/download/v1.31.0+k3s1/k3s-airgap-images-amd64.tar.gz HTTP/1.1" 302 0
+15:30:31,476 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): release-assets.githubusercontent.com:443
+15:30:32,77 urllib3.connectionpool DEBUG https://release-assets.githubusercontent.com:443 "GET /github-production-release-asset/135516270/13c9c071-8cfc-44ad-9a8e-5c9e2d641b4b?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-08-09T09%3A05%3A00Z&rscd=attachment%3B+filename%3Dk3s-airgap-images-amd64.tar.gz&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-08-09T08%3A04%3A42Z&ske=2026-08-09T09%3A05%3A00Z&sks=b&skv=2018-11-09&sig=8PadKPDkhUdm5LGwwLNdDJ9HhkOhwYH9ivV6TrbCo0A%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NjI2NzgzMSwibmJmIjoxNzg2MjY0MjMxLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.mr6hji771bfLtza3nzSDo5TeZ0hkcB94pTgJhxNO1Wo&response-content-disposition=attachment%3B%20filename%3Dk3s-airgap-images-amd64.tar.gz&response-content-type=application%2Foctet-stream HTTP/1.1" 200 166804310
+15:30:46,798 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/k3s/k3s-airgap-images-amd64.tar.gz
+15:30:46,799 platform_stages.steps.install_system_packages INFO Downloading https://raw.githubusercontent.com/k3s-io/k3s/refs/tags/v1.31.0+k3s1/install.sh to tools/k3s/install.sh...
+15:30:46,800 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): raw.githubusercontent.com:443
+15:30:47,443 urllib3.connectionpool DEBUG https://raw.githubusercontent.com:443 "GET /k3s-io/k3s/refs/tags/v1.31.0+k3s1/install.sh HTTP/1.1" 200 10174
+15:30:47,454 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/k3s/install.sh
+15:30:47,455 platform_stages.steps.install_system_packages INFO Downloading https://archive.ubuntu.com/ubuntu/pool/universe/p/pigz/pigz_2.4-1_amd64.deb to tools/Ubuntu/pigz_2.4-1_amd64.deb...
+15:30:47,456 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): archive.ubuntu.com:443
+15:30:49,170 urllib3.connectionpool DEBUG https://archive.ubuntu.com:443 "GET /ubuntu/pool/universe/p/pigz/pigz_2.4-1_amd64.deb HTTP/1.1" 200 57448
+15:30:49,698 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/pigz_2.4-1_amd64.deb
+15:30:49,699 platform_stages.steps.install_system_packages INFO Downloading https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/nvidia-container-toolkit-base_1.17.8-1_amd64.deb to tools/Ubuntu/nvidia/nvidia-container-toolkit-base_1.17.8-1_amd64.deb...
+15:30:49,699 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): developer.download.nvidia.com:443
+15:30:52,325 urllib3.connectionpool DEBUG https://developer.download.nvidia.com:443 "GET /compute/cuda/repos/ubuntu2004/x86_64/nvidia-container-toolkit-base_1.17.8-1_amd64.deb HTTP/1.1" 200 3796622
+15:30:53,461 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/nvidia/nvidia-container-toolkit-base_1.17.8-1_amd64.deb
+15:30:53,461 platform_stages.steps.install_system_packages INFO Downloading https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/nvidia-container-toolkit_1.17.8-1_amd64.deb to tools/Ubuntu/nvidia/nvidia-container-toolkit_1.17.8-1_amd64.deb...
+15:30:53,462 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): developer.download.nvidia.com:443
+15:30:55,941 urllib3.connectionpool DEBUG https://developer.download.nvidia.com:443 "GET /compute/cuda/repos/ubuntu2004/x86_64/nvidia-container-toolkit_1.17.8-1_amd64.deb HTTP/1.1" 200 1190040
+15:30:56,229 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/nvidia/nvidia-container-toolkit_1.17.8-1_amd64.deb
+15:30:56,229 platform_stages.steps.install_system_packages INFO Downloading https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/libnvidia-container1_1.17.8-1_amd64.deb to tools/Ubuntu/nvidia/libnvidia-container1_1.17.8-1_amd64.deb...
+15:30:56,230 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): developer.download.nvidia.com:443
+15:30:58,858 urllib3.connectionpool DEBUG https://developer.download.nvidia.com:443 "GET /compute/cuda/repos/ubuntu2004/x86_64/libnvidia-container1_1.17.8-1_amd64.deb HTTP/1.1" 200 925622
+15:30:59,708 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/nvidia/libnvidia-container1_1.17.8-1_amd64.deb
+15:30:59,709 platform_stages.steps.install_system_packages INFO Downloading https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/libnvidia-container-tools_1.17.8-1_amd64.deb to tools/Ubuntu/nvidia/libnvidia-container-tools_1.17.8-1_amd64.deb...
+15:30:59,710 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): developer.download.nvidia.com:443
+15:31:01,687 urllib3.connectionpool DEBUG https://developer.download.nvidia.com:443 "GET /compute/cuda/repos/ubuntu2004/x86_64/libnvidia-container-tools_1.17.8-1_amd64.deb HTTP/1.1" 200 22136
+15:31:01,747 platform_stages.steps.install_system_packages INFO Successfully downloaded tools/Ubuntu/nvidia/libnvidia-container-tools_1.17.8-1_amd64.deb
+15:31:01,747 platform_stages.steps.install_system_packages INFO System packages downloaded.
+15:31:01,748 platform_stages.steps.install_system_packages INFO Installing system packages...
+dpkg: warning: downgrading pigz from 2.8-1 to 2.4-1
+(Reading database ... 44586 files and directories currently installed.)
+Preparing to unpack .../Ubuntu/pigz_2.4-1_amd64.deb ...
+Unpacking pigz (2.4-1) over (2.8-1) ...
+Setting up pigz (2.4-1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Selecting previously unselected package libnvidia-container-tools.
+(Reading database ... 44586 files and directories currently installed.)
+Preparing to unpack .../libnvidia-container-tools_1.17.8-1_amd64.deb ...
+Unpacking libnvidia-container-tools (1.17.8-1) ...
+Selecting previously unselected package libnvidia-container1:amd64.
+Preparing to unpack .../libnvidia-container1_1.17.8-1_amd64.deb ...
+Unpacking libnvidia-container1:amd64 (1.17.8-1) ...
+Selecting previously unselected package nvidia-container-toolkit-base.
+Preparing to unpack .../nvidia-container-toolkit-base_1.17.8-1_amd64.deb ...
+Unpacking nvidia-container-toolkit-base (1.17.8-1) ...
+Selecting previously unselected package nvidia-container-toolkit.
+Preparing to unpack .../nvidia-container-toolkit_1.17.8-1_amd64.deb ...
+Unpacking nvidia-container-toolkit (1.17.8-1) ...
+Setting up libnvidia-container1:amd64 (1.17.8-1) ...
+Setting up nvidia-container-toolkit-base (1.17.8-1) ...
+Setting up libnvidia-container-tools (1.17.8-1) ...
+Setting up nvidia-container-toolkit (1.17.8-1) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.8) ...
+15:31:02,836 platform_stages.steps.install_system_packages INFO System packages installed.
+15:31:02,837 commands.install INFO Installing k3s. Detailed logs can be found in: platform_logs/k3s_install.log.
+15:31:05,311 checks.os DEBUG Checking OS version with `grep ^PRETTY /etc/os-release`
+15:31:05,313 checks.os DEBUG Checking OS version with `grep ^PRETTY /etc/os-release`
+15:31:05,315 k3s.install INFO envs for k3s installation: {'INSTALL_K3S_SKIP_DOWNLOAD': 'true', 'INSTALL_K3S_VERSION': 'v1.31.0+k3s1', 'INSTALL_K3S_EXEC': '--disable traefik --disable runtimes --service-node-port-range 30000-30050 --node-name=geti --kube-apiserver-arg=enable-admission-plugins=NodeRestriction,ServiceAccount --kube-apiserver-arg=request-timeout=5m0s --kube-apiserver-arg=audit-log-path=/var/lib/rancher/k3s/server/logs/audit.log --kube-apiserver-arg=tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 --kube-apiserver-arg=audit-log-maxbackup=10 --kube-apiserver-arg=event-ttl=1h0m0s --kube-controller-manager-arg=terminated-pod-gc-threshold=1000 --kube-controller-manager-arg=leader-elect-lease-duration=30s --kube-controller-manager-arg=leader-elect-renew-deadline=20s --kube-controller-manager-arg=bind-address=127.0.0.1 --kube-scheduler-arg=bind-address=127.0.0.1 --kubelet-arg=streaming-connection-idle-timeout=5m --kubelet-arg=rotate-server-certificates=true --kubelet-arg=eviction-hard=imagefs.available<5Gi,memory.available<100Mi,nodefs.available<5Gi,nodefs.inodesFree<5% --kubelet-arg=eviction-minimum-reclaim=imagefs.available=1Gi,nodefs.available=1Gi --kubelet-arg=image-gc-low-threshold=0 '}
+15:31:05,316 k3s.install DEBUG Running K3s installer with the configuration:
+INSTALL_K3S_VERSION: v1.31.0+k3s1, INSTALL_K3S_EXEC: --disable traefik --disable runtimes --service-node-port-range 30000-30050 --node-name=geti --kube-apiserver-arg=enable-admission-plugins=NodeRestriction,ServiceAccount --kube-apiserver-arg=request-timeout=5m0s --kube-apiserver-arg=audit-log-path=/var/lib/rancher/k3s/server/logs/audit.log --kube-apiserver-arg=tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 --kube-apiserver-arg=audit-log-maxbackup=10 --kube-apiserver-arg=event-ttl=1h0m0s --kube-controller-manager-arg=terminated-pod-gc-threshold=1000 --kube-controller-manager-arg=leader-elect-lease-duration=30s --kube-controller-manager-arg=leader-elect-renew-deadline=20s --kube-controller-manager-arg=bind-address=127.0.0.1 --kube-scheduler-arg=bind-address=127.0.0.1 --kubelet-arg=streaming-connection-idle-timeout=5m --kubelet-arg=rotate-server-certificates=true --kubelet-arg=eviction-hard=imagefs.available<5Gi,memory.available<100Mi,nodefs.available<5Gi,nodefs.inodesFree<5% --kubelet-arg=eviction-minimum-reclaim=imagefs.available=1Gi,nodefs.available=1Gi --kubelet-arg=image-gc-low-threshold=0 .
+15:31:08,884 k3s.install DEBUG Checking if k3s node is already set up.
+15:31:08,987 k3s.install DEBUG k3s node is not yet ready.
+15:31:19,93 k3s.install DEBUG Config file: '/var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl' not found, skipping.
+15:31:19,93 k3s.install DEBUG Created a stub file /etc/rancher/k3s/impt_k3s to differentiate platform installer k3s installation.
+15:31:19,93 k3s.install DEBUG Adjusting K3s kubeconfig server address.
+15:31:19,94 k3s.detect_ip DEBUG Getting first public IPv4 machine's network interface address.
+15:31:19,94 k3s.detect_ip DEBUG Getting first private IPv4 machine's network interface address.
+15:31:19,95 k3s.install DEBUG Copied /etc/rancher/k3s/k3s.yaml to /etc/rancher/k3s/k3s-remote.yaml.
+15:31:19,97 k3s.install DEBUG Server address in /etc/rancher/k3s/k3s-remote.yaml is set: 10.255.255.254.
+15:31:19,100 k3s.install DEBUG Namespace in /etc/rancher/k3s/k3s-remote.yaml is set to: impt.
+15:31:19,100 commands.install INFO k3s installed successfully. Path to admin kubeconfig: /etc/rancher/k3s/k3s.yaml
+15:31:19,101 k3s.detect_ip DEBUG Getting first public IPv4 machine's network interface address.
+15:31:19,101 k3s.detect_ip DEBUG Getting first private IPv4 machine's network interface address.
+15:31:19,105 platform_stages.steps.create_platform_dir INFO Creating platform install path at '/tmp/impp-install'
+15:31:19,106 platform_stages.steps.create_platform_dir INFO Platform path created.
+15:31:19,106 platform_stages.steps.extract_registry_data INFO External registry used, skipping internal registry extract
+15:31:19,115 platform_utils.helm INFO Generating Jinja template.
+15:31:19,115 commands.install ERROR Error during installation.
+Traceback (most recent call last):
+  File "/home/sysc/geti_v2/platform/services/installer/app/platform_utils/helm.py", line 127, in save_jinja_template
+    template = environment.get_template(source_file)
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/jinja2/loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/home/sysc/geti_v2/platform/services/installer/.venv/lib/python3.10/site-packages/jinja2/loaders.py", line 209, in get_source
+    raise TemplateNotFound(
+jinja2.exceptions.TemplateNotFound: 'nvidia-device-plugin.yaml.j2' not found in search path: '../templates'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/sysc/geti_v2/platform/services/installer/app/commands/install.py", line 382, in execute_installation
+    install_platform(config=config)
+  File "/home/sysc/geti_v2/platform/services/installer/app/platform_stages/install.py", line 75, in install_platform
+    task()
+  File "/home/sysc/geti_v2/platform/services/installer/app/platform_stages/steps/configure_gpu.py", line 143, in configure_gpu
+    save_jinja_template(NVIDIA_DEVICE_PLUGIN_TEMPLATE_NAME, data, NVIDIA_DEVICE_PLUGIN_YAML_PATH)
+  File "/home/sysc/geti_v2/platform/services/installer/app/platform_utils/helm.py", line 133, in save_jinja_template
+    raise GenerateTemplateError from ex
+platform_stages.steps.errors.GenerateTemplateError
+15:31:19,115 platform_utils.management.state INFO Dumping cluster info into: 'platform_logs/cluster_info/20260809T153119'
+Cluster info dumped to platform_logs/cluster_info/20260809T153119
+15:31:20,874 platform_utils.management.state INFO Cluster info dumped.

@@ -1,0 +1,102 @@
++ id -u
++ [ 0 -eq 0 ]
++ K3S_DATA_DIR=/var/lib/rancher/k3s
++ /usr/local/bin/k3s-killall.sh
++ [ -s /etc/systemd/system/k3s.service ]
++ basename /etc/systemd/system/k3s.service
++ systemctl stop k3s.service
++ [ -x /etc/init.d/k3s* ]
++ killtree 150423 150424 150441
++ kill -9 150423 150483 150580 150424 150492 150642 150441 150491 150574
++ do_unmount_and_remove /run/k3s
++ set +x
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/k3s/containerd/io.containerd.runtime.v2.task/k8s.io/f269ec37d5efd5f985694560f62bb5e454ec68c7842e6bc82a7057087d195e95/rootfs
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/k3s/containerd/io.containerd.runtime.v2.task/k8s.io/e4c8897d7984ce60af7019ad24f252fb1f1b49b289501333308e8420140d1240/rootfs
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/k3s/containerd/io.containerd.runtime.v2.task/k8s.io/8d055540ddfafd9f8c28cb038db786ee7fcb46dbd7ca1f2985560162c54c725b/rootfs
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/k3s/containerd/io.containerd.runtime.v2.task/k8s.io/7a68ef88bdf47b828667186d374a5e4a03247ababb371eb5e5cb066fb05bfd4d/rootfs
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/k3s/containerd/io.containerd.runtime.v2.task/k8s.io/48704294fa2c3e0a0f93498977bc16806be6fe1eef3c35bbed2bb0625161ca06/rootfs
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/k3s/containerd/io.containerd.runtime.v2.task/k8s.io/2026807344356304588f3205b3c201b183b614171ebca9608f28426e47647ca1/rootfs
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/k3s/containerd/io.containerd.grpc.v1.cri/sandboxes/7a68ef88bdf47b828667186d374a5e4a03247ababb371eb5e5cb066fb05bfd4d/shm
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/k3s/containerd/io.containerd.grpc.v1.cri/sandboxes/48704294fa2c3e0a0f93498977bc16806be6fe1eef3c35bbed2bb0625161ca06/shm
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/k3s/containerd/io.containerd.grpc.v1.cri/sandboxes/2026807344356304588f3205b3c201b183b614171ebca9608f28426e47647ca1/shm
++ do_unmount_and_remove /var/lib/kubelet/pods
++ set +x
+sh -c 'umount -f "$0" && rm -rf "$0"' /var/lib/kubelet/pods/dc062f36-e188-48ed-a9f0-90205f478b78/volumes/kubernetes.io~projected/kube-api-access-jsfwm
+sh -c 'umount -f "$0" && rm -rf "$0"' /var/lib/kubelet/pods/905e0e4a-b7ff-4e57-8dfb-9066fe9d10fc/volumes/kubernetes.io~projected/kube-api-access-nkq9n
+sh -c 'umount -f "$0" && rm -rf "$0"' /var/lib/kubelet/pods/12c03c45-6abb-4a0b-bc30-7e2745ca2677/volumes/kubernetes.io~projected/kube-api-access-wq8vr
++ do_unmount_and_remove /var/lib/kubelet/plugins
++ set +x
++ do_unmount_and_remove /run/netns/cni-
++ set +x
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/netns/cni-9e49d397-86c5-7adf-f72e-f92f4c1b0485
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/netns/cni-773ce92f-f3ec-3df9-8b07-6329db29f33b
+sh -c 'umount -f "$0" && rm -rf "$0"' /run/netns/cni-73752720-8ee8-cc94-e016-c39dbfe63bde
++ ip netns show
++ grep cni-
++ xargs -r -t -n 1 ip netns delete
++ remove_interfaces
++ ip link show
++ grep master cni0
++ read ignore iface ignore
++ iface=vethaa363583
++ [ -z vethaa363583 ]
++ ip link delete vethaa363583
++ read ignore iface ignore
++ iface=veth5fa9f8f8
++ [ -z veth5fa9f8f8 ]
++ ip link delete veth5fa9f8f8
++ read ignore iface ignore
++ ip link delete cni0
++ ip link delete flannel.1
++ ip link delete flannel-v6.1
+Cannot find device "flannel-v6.1"
++ ip link delete kube-ipvs0
+Cannot find device "kube-ipvs0"
++ ip link delete flannel-wg
+Cannot find device "flannel-wg"
++ ip link delete flannel-wg-v6
+Cannot find device "flannel-wg-v6"
++ command -v tailscale
++ [ -n  ]
++ rm -rf /var/lib/cni/
++ iptables-save
++ grep -v KUBE-
++ grep -iv flannel
++ grep -v CNI-
++ iptables-restore
++ ip6tables-save
++ grep -v KUBE-
++ grep -v CNI-
++ grep -iv flannel
++ ip6tables-restore
++ command -v systemctl
+/usr/bin/systemctl
++ systemctl disable k3s
+Removed "/etc/systemd/system/multi-user.target.wants/k3s.service".
++ systemctl reset-failed k3s
+Failed to reset failed state of unit k3s.service: Unit k3s.service not loaded.
++ systemctl daemon-reload
++ command -v rc-update
++ rm -f /etc/systemd/system/k3s.service
++ rm -f /etc/systemd/system/k3s.service.env
++ trap remove_uninstall EXIT
++ [ -L /usr/local/bin/kubectl ]
++ [ -L /usr/local/bin/crictl ]
++ rm -f /usr/local/bin/crictl
++ [ -L /usr/local/bin/ctr ]
++ rm -rf /etc/rancher/k3s
++ rm -rf /run/k3s
++ rm -rf /run/flannel
++ clean_mounted_directory /var/lib/rancher/k3s
++ grep -q  /var/lib/rancher/k3s /proc/mounts
++ rm -rf /var/lib/rancher/k3s
++ return 0
++ rm -rf /var/lib/kubelet
+rm: cannot remove '/var/lib/kubelet': Device or resource busy
++ rm -f /usr/local/bin/k3s
++ rm -f /usr/local/bin/k3s-killall.sh
++ type yum
++ type rpm-ostree
++ type zypper
++ remove_uninstall
++ rm -f /usr/local/bin/k3s-uninstall.sh

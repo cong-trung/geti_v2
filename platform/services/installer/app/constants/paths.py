@@ -11,7 +11,7 @@ from constants.platform import INTERNAL_REGISTRY_ADDRESS
 ###
 # common
 ###
-SYSTEM_PACKAGES_PATH = f"{getattr(sys, '_MEIPASS', '.')}/system-packages.yaml"
+SYSTEM_PACKAGES_PATH = f"{getattr(sys, '_MEIPASS', str(Path(__file__).parent.parent))}/system-packages.yaml"
 OFFLINE_TOOLS_DIR = "tools"
 USR_LOCAL_BIN_PATH = "/usr/local/bin/"
 OFFLINE_IMAGES_DIR = "images"
@@ -69,8 +69,8 @@ UBUNTU_PACKAGES_PATH = f"{OFFLINE_TOOLS_DIR}/Ubuntu"
 UBUNTU_NVIDIA_PACKAGES_PATH = f"{OFFLINE_TOOLS_DIR}/Ubuntu/nvidia"
 RESOURCE_VALUES_FILE_NAME = "impt-resource-values.yaml"
 DATA_CAN_BE_RESTORED_FLAG = ".can_be_restored.flag"
-TEMPLATES_DIR = f"{getattr(sys, '_MEIPASS', '..')}/templates"
-VERSION_YAML_PATH = f"{getattr(sys, '_MEIPASS', '.')}/version.yaml"
+TEMPLATES_DIR = f"{getattr(sys, '_MEIPASS', str(Path(__file__).parent.parent / 'templates'))}"
+VERSION_YAML_PATH = f"{getattr(sys, '_MEIPASS', str(Path(__file__).parent.parent))}/version.yaml"
 
 # List of paths to CRD charts that need to be deployed.
 # Each path is constructed using the CRDS directory and the specific chart name.

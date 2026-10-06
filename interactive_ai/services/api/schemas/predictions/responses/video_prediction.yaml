@@ -7,8 +7,7 @@ properties:
       $ref: "video_frame_prediction.yaml"
   next_page:
     type: string
-    description: "Url to get next page with prediction results. Only appears if number of predictions exceeds
-    maximum allowed predictions defined in backend."
+    description: "Url to get next page with prediction results. Only appears if number of predictions exceeds maximum allowed predictions defined in backend."
   video_prediction_properties:
     type: object
     properties:

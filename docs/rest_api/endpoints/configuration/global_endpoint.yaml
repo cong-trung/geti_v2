@@ -3,9 +3,7 @@ get:
   tags:
     - Configuration
   summary: Get the current configuration for all components in the project.
-  description: "This endpoint gets the configuration for all components in the project that are acting project-wide.
-  The configuration is subdivided into components. Examples of configuration components are the active learning
-  parameters or dataset management related parameters. Some components are further divided into parameter groups."
+  description: "This endpoint gets the configuration for all components in the project that are acting project-wide. The configuration is subdivided into components. Examples of configuration components are the active learning parameters or dataset management related parameters. Some components are further divided into parameter groups."
   operationId: GetGlobalConfiguration
   parameters:
     - $ref: "../../parameters/path/organization_id.yaml"
@@ -43,9 +41,7 @@ post:
   tags:
     - Configuration
   summary: Set the configuration for all components in the project.
-  description: "This endpoint sets the configuration for all components in the project that are acting globally,
-   i.e. project-wide. The configuration is subdivided into components, and every component is divided into parameter
-   groups."
+  description: "This endpoint sets the configuration for all components in the project that are acting globally, i.e. project-wide. The configuration is subdivided into components, and every component is divided into parameter groups."
   operationId: SetGlobalConfiguration
   parameters:
     - $ref: "../../parameters/path/organization_id.yaml"
